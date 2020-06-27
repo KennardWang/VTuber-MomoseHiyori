@@ -22,11 +22,30 @@
 | ***Hiyori酱~*** | Starter, quick mode to start program |
 ------
 ### How to be a VTuber ?
+
+> 1. Download and unzip ZIP files, drag **Recognition** file to the Desktop
+> 2. Install required python libraries  
+>  + I do not test at other operating system, if your OS is not Windows, you'd better test it by yourself
+>  + Windows
+>     + There are some libraries that I use, you can use `pip install -r requirements.txt` to install as you like
+>     + CPU ( ***recommend for testing*** )
+>        +  Libraries Installation by `pip install -r requirements_cpu.txt`
+>        +  Open **Anaconda Prompt** to install `dlib` by `conda install -c menpo dlib` if it doesn't work
+>     + GPU
+>        + Firstly, please check the your CUDA version : **9.0 / 10.1 / 10.2 / None**
+>        + Install [pytorch](https://pytorch.org/) by running corresponding command such as `conda install pytorch torchvision cudatoolkit=10.2 -c pytorch` for 10.2
+>        + Install other libraries by `pip install -r requirements_gpu.txt`.
+>        + If you have CUDA 10, `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
+> 
+> 3. Download **VTuber_Hiyori** and **ckpts** ( If you want to use `onnxruntime` to get faster speed ) by clicking [here](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v1.2.0)
+> 4. Drag **VTuber_Hiyori** to the Desktop, start `VTuber_MomoseHiyori.exe`
+> 5. Drag **Hiyori酱~.bat** to the Desktop and run
+> 6. If **ひよりちゃん** start to simulate your facial expression, congratulations! You have been a VTuber now!
 ------
 ### Unity Asset Tutorial
 ------
 ### Credits
-Thanks for following blogs or projects which give me a reference
+Thanks for following blogs or projects which give me a reference :
 
 + [Model Parameters Adjustment](https://docs.live2d.com/cubism-sdk-tutorials/about-parameterupdating-of-model/?locale=ja)
 + [Socket Connect](https://blog.csdn.net/u012234115/article/details/46481845)
@@ -35,10 +54,10 @@ Thanks for following blogs or projects which give me a reference
 
   > | Project | Author | LICENSE |
   > |:---:|:---:|:---:|
-  > | [VTuber_Unity](https://github.com/kwea123/VTuber_Unity) | [AI葵](https://github.com/kwea123) | [LICENSE](licenses/LICENSE.head-pose-estimation) |
-  > | [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) | [Yin Guobing](https://github.com/yinguobing) | [LICENSE](licenses/LICENSE.head-pose-estimation) |
-  > | [face-alignment](https://github.com/1adrianb/face-alignment) | [Adrian Bulat](https://github.com/1adrianb) | [LICENSE](licenses/LICENSE.face-alignment) |
-  > | [GazeTracking](https://github.com/antoinelame/GazeTracking) | [Antoine Lamé](https://github.com/antoinelame) | [LICENSE](licenses/LICENSE.GazeTracking) |
+  > | [VTuber_Unity](https://github.com/kwea123/VTuber_Unity) | [AI葵](https://github.com/kwea123) | [LICENSE](https://github.com/kwea123/VTuber_Unity/blob/master/LICENSE) |
+  > | [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) | [Yin Guobing](https://github.com/yinguobing) | [LICENSE](https://github.com/yinguobing/head-pose-estimation/blob/master/LICENSE) |
+  > | [face-alignment](https://github.com/1adrianb/face-alignment) | [Adrian Bulat](https://github.com/1adrianb) | [LICENSE](https://github.com/1adrianb/face-alignment/blob/master/LICENSE) |
+  > | [GazeTracking](https://github.com/antoinelame/GazeTracking) | [Antoine Lamé](https://github.com/antoinelame) | [LICENSE](https://github.com/antoinelame/GazeTracking/blob/master/LICENSE) |
 ------
 ### License
 + [MIT License](https://github.com/KennardWang/VTuber-MomoseHiyori/blob/master/LICENSE)
