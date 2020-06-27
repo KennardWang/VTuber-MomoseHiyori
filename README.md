@@ -1,8 +1,10 @@
 # VTuber-MomoseHiyori
+![Live2D](https://kennardwang.github.io/ImageSource/Project/Live2D.png)
 ### Where does the idea come from ?
 + Recently, I do some studies on Deep Learning and Computer Vision. At the same time, I realize that I can make a VTuber model which could simulate my facial expression via computer vision. After watching some tutorials I have made a fantastic Live2D model Momose Hhiyori, and becomes a VTuber successfully !
 ------
 ### VTuber Demo
+<iframe width=480 height=360 src="https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4">
 ------
 ### Development Environment
 + Test System : **Windows 10 64bits**
@@ -23,8 +25,8 @@
 ------
 ### How to be a VTuber ?
 
-> 1. Download and unzip ZIP files, drag **Recognition** file to the Desktop
-> 2. Install required python libraries  
+> 1. Download and unzip ZIP source file to the Desktop
+> 2. Install required python libraries ( ***recommend Anaconda*** )  
 >  + I do not test at other operating system, if your OS is not Windows, you'd better test it by yourself
 >  + Windows
 >     + There are some libraries that I use, you can use `pip install -r requirements.txt` to install as you like
@@ -38,9 +40,10 @@
 >        + If you have CUDA 10, `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
 > 
 > 3. Download **VTuber_Hiyori** and **ckpts** ( If you want to use `onnxruntime` to get faster speed ) by clicking [here](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v1.2.0)
-> 4. Drag **VTuber_Hiyori** to the Desktop, start `VTuber_MomoseHiyori.exe`
-> 5. Drag **Hiyori酱~.bat** to the Desktop and run
-> 6. If **ひよりちゃん** start to simulate your facial expression, congratulations! You have been a VTuber now!
+> 4. Unzip **ckpts** and put it under `Recognition\face_alignment` 
+> 5. Unzip **VTuber_Hiyori** to the Desktop and start `VTuber_MomoseHiyori.exe`
+> 6. Run **Hiyori酱~.bat**
+> 7. If **ひよりちゃん** start to simulate your facial expression, congratulations! You have been a VTuber now!
 ------
 ### Unity Asset Tutorial
 ------
@@ -58,6 +61,7 @@ Thanks for following blogs or projects which give me a reference :
   > | [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) | [Yin Guobing](https://github.com/yinguobing) | [LICENSE](https://github.com/yinguobing/head-pose-estimation/blob/master/LICENSE) |
   > | [face-alignment](https://github.com/1adrianb/face-alignment) | [Adrian Bulat](https://github.com/1adrianb) | [LICENSE](https://github.com/1adrianb/face-alignment/blob/master/LICENSE) |
   > | [GazeTracking](https://github.com/antoinelame/GazeTracking) | [Antoine Lamé](https://github.com/antoinelame) | [LICENSE](https://github.com/antoinelame/GazeTracking/blob/master/LICENSE) |
++ [Model by Artist ***kani_biimu***](https://www.live2d.jp/en/terms/live2d-free-material-license-agreement/)
 ------
 ### License
 + [MIT License](https://github.com/KennardWang/VTuber-MomoseHiyori/blob/master/LICENSE)
