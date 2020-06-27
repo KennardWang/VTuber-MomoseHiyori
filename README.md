@@ -5,10 +5,12 @@
 ------
 ### VTuber Demo
 
-<video id="video" controls="" preload="none" poster="https://kennardwang.github.io/ImageSource/Project/Live2D.png">
-      <source id="mp4" src="https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4" type="video/mp4">
-</video>
-  
+<p align = "center">
+      <img src = "https://kennardwang.github.io/ImageSource/Project/VTuberDemo.gif" width = "480px" height = "360px">
+</p>
+
++ [Video Demo](https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4)
+
 ------
 ### Development Environment
 + Test System : **Windows 10 64bits**
@@ -45,7 +47,7 @@
 > 
 > 3. Download **VTuber_Hiyori** and **ckpts** ( If you want to use `onnxruntime` to get faster speed ) by clicking [here](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v1.2.0)
 > 4. Unzip **ckpts** and put it under `Recognition\face_alignment` 
-> 5. Unzip **VTuber_Hiyori** to the Desktop and start `VTuber_MomoseHiyori.exe`
+> 5. Unzip **VTuber_Hiyori** to the Desktop and start `VTuber_MomoseHiyori.exe` ( Please do not start any other applications simultaneously !!! )
 > 6. Run **Hiyori酱~.bat**
 > 7. If **ひよりちゃん** start to simulate your facial expression, congratulations! You have been a VTuber now!
 ------
