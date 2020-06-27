@@ -1,2 +1,2 @@
-cd Recognition-master
+cd Recognition
 demo.py --connect --cpu
