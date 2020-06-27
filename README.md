@@ -5,7 +5,9 @@
 ------
 ### VTuber Demo
 
-<video src="https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4" controls="controls" width="480" height="360">Demo Address : https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4</video>
+<video id="video" controls="" preload="none" poster="https://kennardwang.github.io/ImageSource/Project/Live2D.png">
+      <source id="mp4" src="https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4" type="video/mp4">
+</video>
   
 ------
 ### Development Environment
