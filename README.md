@@ -4,7 +4,9 @@
 + Recently, I do some studies on Deep Learning and Computer Vision. At the same time, I realize that I can make a VTuber model which could simulate my facial expression via computer vision. After watching some tutorials I have made a fantastic Live2D model Momose Hhiyori, and becomes a VTuber successfully !
 ------
 ### VTuber Demo
-<iframe width=480 height=360 src="https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4">
+
+<video src="https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4" controls="controls" width="480" height="360">Demo Address : https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4</video>
+  
 ------
 ### Development Environment
 + Test System : **Windows 10 64bits**
