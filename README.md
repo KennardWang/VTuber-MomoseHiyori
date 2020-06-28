@@ -9,7 +9,7 @@
       <img src = "https://kennardwang.github.io/ImageSource/Project/VTuberDemo.gif" width = "480px" height = "360px">
 </p>
 
-+ [Watch Video Demo](https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4)
++ [Watch Video Demo](https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4) ( ***I use a mirror camera so that we have opposite behaviors*** )
 + Test Behavior : **Nod**, **Shake**, **Rotate**, **Eyeball Rotate**, **Blink**, **Sleepy**, **Open Mouth**
       
 ------
