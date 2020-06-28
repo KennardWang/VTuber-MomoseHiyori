@@ -59,7 +59,8 @@ If you find it doesn't recognize well, please try again as following :
 + ***Adjust your position*** : You can start a camera demo to help you know your position by adding `--debug` at `Hiyori酱~.bat`. Run again, let the outer green boundary be larger and central but not larger than demo boundary.
 + ***Do not wear glasses*** : Glasses probably influence on the accuracy of eye recognition.
 ------
-### UnityAssets Tutorial ***( If you don't want to know how to make Live2D VTuber, you can skip this part )***
+### UnityAssets Tutorial 
+### ***( If you don't want to know how to make Live2D VTuber, you can skip this part )***
 + ***Description*** : It is a template for all the Live2D models. Live2D is easier to make and has higher graphic quality than 3D models, which means it probably has more extensive markets
 + ***Recommend Unity Engine*** : Unity 2019.2.6f +
 + ***Before you start*** : Equip yourselves with knowledge of Unity basic operation
