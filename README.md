@@ -15,7 +15,7 @@
 ------
 ### Development Environment
 + Test System : **Windows 10 64bits**
-+ Camera : Integrated Webcam
++ Camera : **Integrated Webcam**
 + Socket Transmission : **Intranet**
 + Model Made : **Live2D Cubism Editor 4.0**
 + Engine : **Unity 2019.2.6f1** 
