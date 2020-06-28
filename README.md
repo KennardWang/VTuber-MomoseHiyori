@@ -7,10 +7,12 @@
 
 <p align = "center">
       <img src = "https://kennardwang.github.io/ImageSource/Project/VTuberDemo.gif" width = "480px" height = "360px">
+      <br><br>
+      <img src = "https://kennardwang.github.io/ImageSource/Project/VTuberDemo2.gif" width = "640px" height = "328px">
 </p>
 
-+ [Watch Video Demo](https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4) ( ***I use a mirror camera so that we have opposite behaviors*** )
 + Test Behavior : **Nod**, **Shake**, **Rotate**, **Eyeball Rotate**, **Blink**, **Sleepy**, **Open Mouth**
++ I use a mirror camera so that we have opposite behaviors
       
 ------
 ### Development Environment
@@ -58,6 +60,7 @@ If you find it doesn't recognize well, please try again as following :
 + ***Use brighter light*** : To make your face more clearly, using both natural light and point light seems perfect.
 + ***Adjust your position*** : You can start a camera demo to help you know your position by adding `--debug` at `Hiyori酱~.bat`. Run again, let the outer green boundary be larger and central but not larger than demo boundary.
 + ***Do not wear glasses*** : Glasses probably influence on the accuracy of eye recognition.
++ ***Show your forehead*** : Probably your hair will have side effects on recognition of your eyes.
 ------
 ### UnityAssets Tutorial 
 ### ***( If you don't want to know how to make Live2D VTuber, you can skip this part )***
