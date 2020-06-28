@@ -63,7 +63,7 @@ If you find it doesn't recognize well, please try again as following :
 + ***Description*** : It is a template for all the Live2D models. Live2D is easier to make and has higher graphic quality than 3D models, which means it probably has more extensive markets
 + ***Recommend Unity Engine*** : Unity 2019.2.6f +
 + ***Before you start*** : Equip yourselves with knowledge of Unity basic operation
-+ ***Prepare Live2D SDK*** : You can download SDK on [website](https://www.live2d.com/en/download/cubism-sdk/), or use `CubismSdkForUnity-4-r.1` I download for you under `UnityAssets`
++ ***Prepare Live2D SDK*** : You can download SDK on [website](https://www.live2d.com/en/download/cubism-sdk/download-unity/), or use `CubismSdkForUnity-4-r.1` I download for you under `UnityAssets`
 + ***Create a new Unity project***
 <p align="center"><img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial1.png" width="80%"></p>
 
