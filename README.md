@@ -59,16 +59,54 @@ If you find it doesn't recognize well, please try again as following :
 + ***Adjust your position*** : You can start a camera demo to help you know your position by adding `--debug` at `Hiyori酱~.bat`. Run again, let the outer green boundary be larger and central but not larger than demo boundary.
 + ***Do not wear glasses*** : Glasses probably influence on the accuracy of eye recognition.
 ------
-### Unity Asset Tutorial
+### UnityAssets Tutorial ***( If you don't want to know how to make Live2D VTuber, you can skip this part )***
 + ***Description*** : It is a template for all the Live2D models. Live2D is easier to make and has higher graphic quality than 3D models, which means it probably has more extensive markets
 + ***Recommend Unity Engine*** : Unity 2019.2.6f +
 + ***Before you start*** : Equip yourselves with knowledge of Unity basic operation
 + ***Prepare Live2D SDK*** : You can download SDK on [website](https://www.live2d.com/en/download/cubism-sdk/), or use `CubismSdkForUnity-4-r.1` I download for you under `UnityAssets`
-+ ***Import Live2D SDK*** : Create a new Unity project, clear the `Assets` ( delete all the scenes default ). Drag `UnityAssets` under `Assets` and choose to import all
-+ ***Import Assets*** : Drag `Momose`, `Scece` and `Script` file under `Assets`
++ ***Create a new Unity project***
+<p align="center"><img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial1.png" width="80%"></p>
+
++ ***Import Live2D SDK*** : Drag `CubismSdkForUnity-4-r.1` to `Assets` and choose to import all
+<p align="center">
+      <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial3.png" width="40%">
+      <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial4.png" width="40%">
+</p>
+
++ ***Restart*** : Do not forget this step, otherwise the SDK probably cannot work !
++ ***Import Assets*** : Delete the default scene file, drag `Momose`, `Scece` and `Script` file under `Assets`
+<p align="center">
+      <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial2.png" width="40%">
+      <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial5.png" width="40%">
+</p>
+
 + ***Import Model*** : A **prefab** will be automatically generated at `Assets/Momose/hiyori_pro_t08.prefab`. Open `Scene/MomoseHiyori` and drag **prefab** into scene
+<p align="center"><img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial6.png" width="80%"></p>
+
 + ***Set Position*** : Select **prefab** and move Y axis (blue) ahead
-+ ***Initialize*** : ( Picture )
+<p align="center"><img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial7.png" width="80%"></p>
+
++ ***Initialization*** : Move control balls to initialize
+<p align="center"><img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial8.png" width="80%"></p>
+
++ ***Bind Script***
+<p align="center"><img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial9.png" width="80%"></p>
+
++ ***Export & Build***
+<p align="center"><img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial11.png" width="80%"></p>
+
+<p align="center">
+      <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial10.png" width="40%">
+      <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial12.png" width="40%">
+</p>
+
++ ***Start to Test***
+<p align="center">
+      <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial13.png" width="40%">
+      <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial14.png" width="40%">
+</p>
+
++ ***Now, enjoy making your own Live2D VTuber !!***
 ------
 ### Optimization
 + Use Live2D instead of 3D model
