@@ -7,12 +7,10 @@
 
 <p align = "center">
       <img src = "https://kennardwang.github.io/ImageSource/Project/VTuberDemo.gif" width = "480px" height = "360px">
-      <br><br>
-      <img src = "https://kennardwang.github.io/ImageSource/Project/VTuberDemo2.gif" width = "640px" height = "328px">
 </p>
 
++ [Watch GIF DEMO](https://kennardwang.github.io/ImageSource/Project/VTuberDemo2.gif) ( ***I use a mirror camera so that we have opposite behaviors*** )
 + Test Behavior : **Nod**, **Shake**, **Rotate**, **Eyeball Rotate**, **Blink**, **Sleepy**, **Open Mouth**
-+ I use a mirror camera so that we have opposite behaviors
       
 ------
 ### Development Environment
