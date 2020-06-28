@@ -1,7 +1,7 @@
 # VTuber-MomoseHiyori
 ![Live2D](https://kennardwang.github.io/ImageSource/Project/Live2D.png)
 ### Where does the idea come from ?
-+ Recently, I do some studies on Deep Learning and Computer Vision. At the same time, I realize that I can make a VTuber model which could simulate my facial expression via computer vision. After watching some tutorials I have made a fantastic Live2D model Momose Hhiyori, and becomes a VTuber successfully !
++ Recently, I do some studies on Deep Learning and Computer Vision. At the same time, I realize that I can make a VTuber model by Unity which could simulate my facial expression via computer vision. After watching some tutorials I have made a fantastic Live2D model Momose Hhiyori, and becomes a VTuber successfully !
 ------
 ### VTuber Demo
 
@@ -9,49 +9,72 @@
       <img src = "https://kennardwang.github.io/ImageSource/Project/VTuberDemo.gif" width = "480px" height = "360px">
 </p>
 
-+ [Video Demo](https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4)
-
++ [Watch Video Demo](https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4)
++ Test Behavior : **Nod**, **Shake**, **Rotate**, **Eyeball Rotate**, **Blink**, **Sleepy**, **Open Mouth**
+      
 ------
 ### Development Environment
 + Test System : **Windows 10 64bits**
++ Camera : Integrated Webcam
++ Socket Transmission : **Intranet**
 + Model Made : **Live2D Cubism Editor 4.0**
 + Engine : **Unity 2019.2.6f1** 
 + Script Language : **C#**
 + Recognition Algorithm : **Deep Learning**
 + Language : **Python 3.7 Anaconda**
-+ Main Required Library : **opencv**,**dlib**,**numpy**,**matplotlib**,**torch**
-+ Socket Transmission : **Intranet**
++ Main Required Library : **opencv**, **dlib**, **numpy**, **matplotlib**, **torch**
 ------
 ### File Explanation
 | File | Explanation |
 |:---:|:---:|
 | ***Recognition*** | Packed Algorithm for facial recognition |
-| ***Unity Assets*** | Tutorial materials for those want to make Live2D VTuber by self |
+| ***UnityAssets*** | Tutorial materials for those want to make Live2D VTuber by self |
 | ***Hiyori酱~*** | Starter, quick mode to start program |
 ------
 ### How to be a VTuber ?
 
-> 1. Download and unzip ZIP source file to the Desktop
+> 1. Download and unzip ZIP source file
 > 2. Install required python libraries ( ***recommend Anaconda*** )  
 >  + I do not test at other operating system, if your OS is not Windows, you'd better test it by yourself
 >  + Windows
 >     + There are some libraries that I use, you can use `pip install -r requirements.txt` to install as you like
 >     + CPU ( ***recommend for testing*** )
 >        +  Libraries Installation by `pip install -r requirements_cpu.txt`
->        +  Open **Anaconda Prompt** to install `dlib` by `conda install -c menpo dlib` if it doesn't work
+>        +  Open ***Anaconda Prompt*** to install `dlib` by `conda install -c menpo dlib` if it doesn't work
 >     + GPU
->        + Firstly, please check the your CUDA version : **9.0 / 10.1 / 10.2 / None**
+>        + Firstly, please check the your CUDA version : ***9.0 / 10.1 / 10.2 / None***
 >        + Install [pytorch](https://pytorch.org/) by running corresponding command such as `conda install pytorch torchvision cudatoolkit=10.2 -c pytorch` for 10.2
 >        + Install other libraries by `pip install -r requirements_gpu.txt`.
 >        + If you have CUDA 10, `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
 > 
-> 3. Download **VTuber_Hiyori** and **ckpts** ( If you want to use `onnxruntime` to get faster speed ) by clicking [here](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v1.2.0)
-> 4. Unzip **ckpts** and put it under `Recognition\face_alignment` 
-> 5. Unzip **VTuber_Hiyori** to the Desktop and start `VTuber_MomoseHiyori.exe` ( Please do not start any other applications simultaneously !!! )
-> 6. Run **Hiyori酱~.bat**
+> 3. Download `VTuber_Hiyori.zip` and `ckpts.zip` ( If you want to use `onnxruntime` to get faster speed ) at [Release](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v1.2.0)
+> 4. Unzip `ckpts` and put it under `Recognition\face_alignment` 
+> 5. Unzip `VTuber_Hiyori` and start `VTuber_MomoseHiyori.exe` ( Please ***wait*** and do not start any other applications simultaneously !!! )
+> 6. Run `Hiyori酱~.bat`
 > 7. If **ひよりちゃん** start to simulate your facial expression, congratulations! You have been a VTuber now!
 ------
+### Tips
+If you find it doesn't recognize well, please try again as following :
++ ***Use brighter light*** : To make your face more clearly, using both natural light and point light seems perfect.
++ ***Adjust your position*** : You can start a camera demo to help you know your position by adding `--debug` at `Hiyori酱~.bat`. Run again, let the outer green boundary be larger and central but not larger than demo boundary.
++ ***Do not wear glasses*** : Glasses probably influence on the accuracy of eye recognition.
+------
 ### Unity Asset Tutorial
++ ***Description*** : It is a template for all the Live2D models. Live2D is easier to make and has higher graphic quality than 3D models, which means it probably has more extensive markets
++ ***Recommend Unity Engine*** : Unity 2019.2.6f +
++ ***Before you start*** : Equip yourselves with knowledge of Unity basic operation
++ ***Prepare Live2D SDK*** : You can download SDK on [website](https://www.live2d.com/en/download/cubism-sdk/), or use `CubismSdkForUnity-4-r.1` I download for you under `UnityAssets`
++ ***Import Live2D SDK*** : Create a new Unity project, clear the `Assets` ( delete all the scenes default ). Drag `UnityAssets` under `Assets` and choose to import all
++ ***Import Assets*** : Drag `Momose`, `Scece` and `Script` file under `Assets`
++ ***Import Model*** : A **prefab** will be automatically generated at `Assets/Momose/hiyori_pro_t08.prefab`. Open `Scene/MomoseHiyori` and drag **prefab** into scene
++ ***Set Position*** : Select **prefab** and move Y axis (blue) ahead
++ ***Initialize*** : ( Picture )
+------
+### Optimization
++ Use Live2D instead of 3D model
++ Add 2 eye events : **sleepy** and **eyeball rotation**
++ Optimize some parameters and be more accurate
++ Easy start and fix window at top without boundary, more convenient for live streaming
 ------
 ### Credits
 Thanks for following blogs or projects which give me a reference :
