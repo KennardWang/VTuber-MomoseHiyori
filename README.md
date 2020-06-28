@@ -106,6 +106,7 @@ If you find it doesn't recognize well, please try again as following :
       <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial14.png" width="40%">
 </p>
 
++ ***Recommendation for Model Website*** : https://www.live2d.com/en/download/sample-data/
 + ***Now, enjoy making your own Live2D VTuber !!***
 ------
 ### Optimization
