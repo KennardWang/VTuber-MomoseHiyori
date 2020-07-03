@@ -47,7 +47,7 @@
 >        + Install other libraries by `pip install -r requirements_gpu.txt`.
 >        + If you have CUDA 10, `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
 > 
-> 3. Download `VTuber_Hiyori.zip` and `ckpts.zip` ( If you want to use `onnxruntime` to get faster speed ) at [Release](https://github.com/KennardWang/VTuber-MomoseHiyori/releases)
+> 3. Download `VTuber_Hiyori.zip` and `ckpts.zip` ( If you want to use `onnxruntime` to get faster speed ) at [Release](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v1.2.0)
 > 4. Unzip `ckpts` and put it under `Recognition\face_alignment` 
 > 5. Unzip `VTuber_Hiyori` and start `VTuber_MomoseHiyori.exe` ( Please ***wait*** and do not start any other applications simultaneously !!! )
 > 6. Run `Hiyori酱~.bat`
