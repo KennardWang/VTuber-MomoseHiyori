@@ -10,7 +10,7 @@
 </p>
 
 + [Watch MP4 DEMO](https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4) ( ***I use a mirror camera so that my behavior is opposite to Hiyori's*** )
-+ Test Behavior : **Nod**, **Shake**, **Rotate**, **Eyeball Rotate**, **Blink**, **Sleepy**, **Open Mouth**
++ Test Behavior : **Nod**, **Shake**, **Rotation**, **Eyeball Rotation**, **Blink**, **Eye Half-opening**, **Mouth Opening**
       
 ------
 ### Development Environment
@@ -18,11 +18,11 @@
 + Camera : **Integrated Webcam**
 + Socket Transmission : **Intranet**
 + Model Made : **Live2D Cubism Editor 4.0**
-+ Engine : **Unity 2019.2.6f1** 
++ Engine : **Unity** 
 + Script Language : **C#**
 + Recognition Algorithm : **Deep Learning**
 + Language : **Python 3.7 Anaconda**
-+ Main Required Library : **opencv**, **dlib**, **numpy**, **matplotlib**, **torch**
++ Main Required Library : **opencv**, **dlib**, **numpy**, **torch**
 ------
 ### File Explanation
 | File | Explanation |
@@ -47,25 +47,26 @@
 >        + Install other libraries by `pip install -r requirements_gpu.txt`.
 >        + If you have CUDA 10, `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
 > 
-> 3. Download `VTuber_Hiyori.zip` and `ckpts.zip` ( If you want to use `onnxruntime` to get faster speed ) at [Release](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v1.2.0)
+> 3. Download `VTuber_Hiyori.zip` and `ckpts.zip` ( If you want to use `onnxruntime` to get faster speed ) at [Release](https://github.com/KennardWang/VTuber-MomoseHiyori/releases)
 > 4. Unzip `ckpts` and put it under `Recognition\face_alignment` 
 > 5. Unzip `VTuber_Hiyori` and start `VTuber_MomoseHiyori.exe` ( Please ***wait*** and do not start any other applications simultaneously !!! )
 > 6. Run `Hiyori酱~.bat`
 > 7. If **ひよりちゃん** start to simulate your facial expression, congratulations! You have been a VTuber now!
+> 8. The [latest verion](https://github.com/KennardWang/VTuber-MomoseHiyori/releases) has been released, you can download and use them.
 ------
 ### Tips
 If you find it doesn't recognize well, please try again as following :
 + ***Use brighter light*** : To make your face more clearly, using both natural light and point light seems perfect.
 + ***Adjust your position*** : You can start a camera demo to help you know your position by adding `--debug` at `Hiyori酱~.bat`. Run again, let the outer green boundary be larger and central but not larger than demo boundary.
 + ***Do not wear glasses*** : Glasses probably influence on the accuracy of eye recognition.
-+ ***Show your forehead*** : Probably your hair will have side effects on recognition of your eyes.
++ ***Show your forehead*** : Probably your hair is too long to have side effects on recognition of your eyes.
 ------
 ### UnityAssets Tutorial 
 ### ***( If you don't want to know how to make Live2D VTuber, you can skip this part )***
-+ ***Description*** : It is a template for all the Live2D models. Live2D is easier to make and has higher graphic quality than 3D models, which means it probably has more extensive markets
-+ ***Recommend Unity Engine*** : Unity 2019.2.6f +
++ ***Description*** : It is a template for most Cubism Live2D models. If you just want to customize your own Live2D models, probably you can read this tutorial and following steps.
++ ***Recommend Unity Engine*** : Unity 2019.4.1f1 LTS
 + ***Before you start*** : Equip yourselves with knowledge of Unity basic operation
-+ ***Prepare Live2D SDK*** : You can download SDK on [website](https://www.live2d.com/en/download/cubism-sdk/download-unity/), or use `CubismSdkForUnity-4-r.1` I download for you under `UnityAssets`
++ ***Prepare Live2D SDK*** : You must download SDK on [website](https://www.live2d.com/en/download/cubism-sdk/download-unity/), or use `CubismSdkForUnity-4-r.1` I download for you under `UnityAssets`
 + ***Create a new Unity project***
 <p align="center"><img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial1.png" width="80%"></p>
 
@@ -75,7 +76,7 @@ If you find it doesn't recognize well, please try again as following :
       <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial4.png" width="40%">
 </p>
 
-+ ***Restart*** : Do not forget this step, otherwise the SDK probably cannot work !
++ ***Restart Unity*** : Do not forget this step, otherwise the SDK probably cannot work !
 + ***Import Assets*** : Delete the default scene file, drag `Momose`, `Scece` and `Script` file under `Assets`
 <p align="center">
       <img src="https://kennardwang.github.io/ImageSource/Project/UnityAssetsTutorial2.png" width="40%">
@@ -113,9 +114,9 @@ If you find it doesn't recognize well, please try again as following :
 ------
 ### Optimization
 + Use Live2D instead of 3D model
-+ Add 2 eye events : **sleepy** and **eyeball rotation**
++ Add 2 eye events : **Eye Half-opening** and **Eyeball Rotation**
 + Optimize some parameters and be more accurate
-+ Easy start and fix window at top without boundary, more convenient for live streaming
++ Easy start and fixed window at top without boundary, more convenient for live streaming
 ------
 ### Credits
 Thanks for following blogs or projects which give me a reference :
