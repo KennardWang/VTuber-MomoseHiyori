@@ -1,2 +1,2 @@
 cd Recognition
-demo.py --connect --cpu
+python demo.py --connect --cpu
