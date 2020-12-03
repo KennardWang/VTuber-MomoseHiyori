@@ -77,15 +77,13 @@ def detect_iris(frame, marks):
         #roundness = cv2.arcLength(contours[0], True) ** 2 / cv2.contourArea(contours[0]) - 2 * math.pi
 
         # calculate the openness of the eye based on the ratio of the contour
-        contour_min_x = np.min(contours[0][:, :, 0])
-        contour_max_x = np.max(contours[0][:, :, 0])
-        contour_min_y = np.min(contours[0][:, :, 1])
-        contour_max_y = np.max(contours[0][:, :, 1])
-        contour_ratio = (contour_max_y - contour_min_y) / (contour_max_x - contour_min_x)
+        rect = cv2.minAreaRect(contours[0])
+        _, (width, height), _ = rect
+        contour_ratio = min(width, height) / max(width, height)
 
-        return x + min_x, y + min_y, normalizedx, normalizedy, contour_ratio, contours, min_x, min_y
+        return x + min_x, y + min_y, normalizedx, normalizedy, contour_ratio, contours + [np.int0(cv2.boxPoints(rect))], min_x, min_y
     except:
-        return 0, 0, 0.5, 0.5, 0.5, None, None, None
+        return 0, 0, 0.5, 0.5, 0.5, [], None, None
 
 def shape_to_np(shape):
     coords = np.zeros((68, 2))
