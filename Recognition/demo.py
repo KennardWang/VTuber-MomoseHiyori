@@ -1,5 +1,10 @@
 import socket
 import time
+import json
+import asyncio
+import websockets
+
+
 from argparse import ArgumentParser
 from collections import deque
 from platform import system
@@ -32,7 +37,13 @@ def get_face(detector, image, cpu=False):
             return None
         return (2*box[:4]).astype(int)
 
-def main():
+async def send(sock, msg):
+    try:
+        await mySocket.send(msg)
+    except:
+        pass
+
+async def main():
     # Setup face detection models
     if args.cpu: # use dlib to do face detection and facial landmark detection
         import dlib
@@ -57,6 +68,9 @@ def main():
         cap = cv2.VideoCapture(args.cam)
     cap.set(cv2.CAP_PROP_FPS, 30)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    if os_name in ['Darwin']:
+        time.sleep(5)
     _, sample_frame = cap.read()
 
     # Introduce pose estimator to solve pose. Get one frame to setup the
@@ -85,11 +99,39 @@ def main():
     while True:
         _, frame = cap.read()
         frame = cv2.flip(frame, 2)
+        # if something happens and we got none
+        if frame is None:
+            print('warning: we got no frame for some reason')
+            continue
         frame_count += 1
-        if args.connect and frame_count > 60: # send information to unity
-            msg = '%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f'% \
-                  (roll, pitch, yaw, eye_open, eye_diff, eyeballX, eyeballY, mouthWidth, mouthVar) # modified by Kennard
+
+        # send information to unity
+        if args.connect and frame_count > 60:
+            msg = '%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f'% \
+                  (roll, pitch, yaw, eye_open, eye_diff, eyeballX, eyeballY, mouthWidth, mouthVar, eye_open_left, eye_open_right) # modified by Kennard
             s.send(bytes(msg, "utf-8"))
+
+        # send information to websocket
+        if mySocket is not None and frame_count > 60:
+            msg = json.dumps({
+                'roll': roll[0].item(),
+                'pitch': pitch[0].item(),
+                'yaw': yaw[0].item(),
+                'eye_open': eye_open,
+                'eyeballX': eyeballX[0].item(),
+                'eyeballY': eyeballY[0].item(),
+                'eye_open_left': eye_open_left,
+                'eye_open_right': eye_open_right,
+                'leftBrowRatio': leftBrowRatio.item(),
+                'rightBrowRatio': rightBrowRatio.item(),
+                'facePosX': facePosX.item(),
+                'facePosY': facePosY.item(),
+                'facePosZ': facePosZ.item(),
+                'eyeDist': eyeDist.item(),
+                'mouthWidth': mouthWidthRatio.item(),
+                'mouthHeight': mouthHeight.item()
+            })
+            asyncio.ensure_future(send(mySocket, msg))
 
         t = time.time()
 
@@ -132,8 +174,8 @@ def main():
                     marks = prev_marks[-1] + np.mean(np.diff(np.array(prev_marks), axis=0), axis=0)
                 prev_marks.append(marks)
 
-            x_l, y_l, ll, lu = detect_iris(frame, marks, "left")
-            x_r, y_r, rl, ru = detect_iris(frame, marks, "right")
+            x_l, y_l, ll, lu, left_openness, left_contours, leftx, lefty = detect_iris(frame, marks[36:42])
+            x_r, y_r, rl, ru, right_openness, right_contours, rightx, righty = detect_iris(frame, marks[42:48])
 
             # Try pose estimation with 68 points.
             error, R, T = pose_estimator.solve_pose_by_68_points(marks)
@@ -158,22 +200,34 @@ def main():
             yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
 
             # modified by Kennard
-            eye_left = eye_aspect_ratio(marks[36:42])
-            eye_right = eye_aspect_ratio(marks[42:48])
-            eye_open = min(eye_left, eye_right)
+            eye_left = left_openness
+            eye_right = right_openness
+            eye_open = max(eye_left, eye_right)
+            eye_open_left = eye_left
+            eye_open_right = eye_right
             eye_diff = eye_left - eye_right
-            eyeballX = (steady_pose[6] - 0.45)*(-2)  # calibrate
-            eyeballY = (steady_pose[7] - 0.38)*2  # calibrate
+            eyeballX = (steady_pose[6] - 0.5)*(-2)  # calibrate
+            eyeballY = (steady_pose[7] - 0.5)*2  # calibrate
             mouthVar = mouth_aspect_ration(marks[60:68])
-            mouthWidth = mouth_distance(marks[60:68])/(facebox[2]-facebox[0]) +0.4 # calibrate
+            mouthWidth = mouth_distance(marks[60:68])/(facebox[2]-facebox[0]) # calibrate
+            leftBrowRatio = eyebrow_distance(marks[36:42], marks[17:22])
+            rightBrowRatio = eyebrow_distance(marks[42:48], marks[22:27])
+            facePosX = steady_pose[3]
+            facePosY = steady_pose[4]
+            facePosZ = steady_pose[5]
+            eyeDist = np.linalg.norm(marks[39] - marks[42])
+            mouthWidthRatio = np.linalg.norm(marks[48] - marks[54])
+            mouthHeight = np.linalg.norm(marks[62] - marks[66])
             
             if args.debug:  # draw landmarks, etc.
 
                 # show iris.
                 if x_l > 0 and y_l > 0:
                     draw_iris(frame, x_l, y_l)
+                    cv2.drawContours(frame, left_contours, -1, (0, 255, 0), 3, offset=(leftx, lefty))
                 if x_r > 0 and y_r > 0:
                     draw_iris(frame, x_r, y_r)
+                    cv2.drawContours(frame, right_contours, -1, (0, 255, 0), 3, offset=(rightx, righty))
 
                 # show facebox.
                 draw_box(frame, [facebox])
@@ -202,6 +256,12 @@ def main():
             if cv2.waitKey(1) & 0xFF == ord('q'): # press q to exit.
                 break
 
+        # print("before sleep")
+        await asyncio.sleep(0)
+
+    cleanup()
+
+def cleanup():
     # Clean up the process.
     cap.release()
     if args.connect:
@@ -210,19 +270,41 @@ def main():
         cv2.destroyAllWindows()
     print('%.3f'%np.mean(ts))
 
+
+mySocket = None
+
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument("--cam", type=int, 
                         help="specify the camera number if you have multiple cameras",
                         default=0)
-    parser.add_argument("--cpu", action="store_true", 
+    parser.add_argument("--gpu", action="store_false",
+                        dest="cpu",
                         help="use cpu to do face detection and facial landmark detection",
-                        default=False)
+                        default=True)
     parser.add_argument("--debug", action="store_true", 
                         help="show camera image to debug (need to uncomment to show results)",
                         default=False)
     parser.add_argument("--connect", action="store_true", 
                         help="connect to unity character",
                         default=False)
+    parser.add_argument("--no-websocket", action="store_false",
+                        dest="websocket",
+                        help="connect to websocket server",
+                        default=True)
     args = parser.parse_args()
-    main()
+
+    async def websocket_server(websocket, path):
+        greeting = "hello world"
+        await websocket.send(greeting)
+        global mySocket
+        mySocket = websocket
+        while True:
+            await asyncio.sleep(9000)
+
+    start_server = websockets.serve(websocket_server, "localhost", 8765)
+
+    if args.websocket:
+        asyncio.get_event_loop().run_until_complete(start_server)
+    asyncio.get_event_loop().create_task(main())
+    asyncio.get_event_loop().run_forever()

@@ -4,6 +4,7 @@ Miscellaneous functions implemented by me.
 
 import numpy as np
 import cv2
+import math
 
 def eye_aspect_ratio(eye):
     """
@@ -21,7 +22,17 @@ def mouth_aspect_ration(mouth):
 def mouth_distance(mouth):
     return np.linalg.norm(mouth[0]-mouth[4])
 
-def detect_iris(frame, marks, side='left'):
+def eyebrow_distance(eye, brow):
+    """
+    eye: array of shape 6:2
+    brow: array of shape 5:2
+    """
+    eyeCenter = np.mean(eye, axis=0)
+    browCenter = np.mean(brow, axis=0)
+    browDistance = np.linalg.norm(brow[0] - brow[4])
+    return np.linalg.norm(eyeCenter - browCenter) / browDistance
+
+def detect_iris(frame, marks):
     """
     return:
        x: the x coordinate of the iris.
@@ -30,10 +41,8 @@ def detect_iris(frame, marks, side='left'):
        y_rate: how much the iris is toward the top. 0 means totally top and 1 is totally bottom.
     """
     mask = np.full(frame.shape[:2], 255, np.uint8)
-    if side == 'left':
-        region = marks[36:42].astype(np.int32)
-    elif side == 'right':
-        region = marks[42:48].astype(np.int32)
+    region = marks.astype(np.int32)
+
     try:
         cv2.fillPoly(mask, [region], (0, 0, 0))
         eye = cv2.bitwise_not(frame, frame.copy(), mask=mask)
@@ -49,13 +58,34 @@ def detect_iris(frame, marks, side='left'):
 
         eye_binarized = cv2.threshold(eye, np.quantile(eye, 0.2), 255, cv2.THRESH_BINARY)[1]
         contours, _ = cv2.findContours(eye_binarized, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-        contours = sorted(contours, key=cv2.contourArea)
-        moments = cv2.moments(contours[-2])
-        x = int(moments['m10'] / moments['m00']) + min_x
-        y = int(moments['m01'] / moments['m00']) + min_y
-        return x, y, (x-min_x-margin)/(max_x-min_x-2*margin), (y-min_y-margin)/(max_y-min_y-2*margin)
+
+        # the first contour is the whole image, so we ignore that
+        contours = sorted(contours, key=cv2.contourArea, reverse=True)[1:]
+        moments = cv2.moments(contours[0])
+        # position of the center of the eye in the cropped image (centroid of contour)
+        x = int(moments['m10'] / moments['m00'])
+        y = int(moments['m01'] / moments['m00'])
+        # fractional position of the center of the eye between 0 and 1
+        normalizedx = x / (max_x - min_x)
+        normalizedy = y / (max_y - min_y)
+
+
+        # these are rotation invariant measures of roundness from the contour, but they don't seem to work as well as the ratio
+        # calculate the roundness
+        #eccentricity = ((moments['m20'] - moments['m02']) ** 2 - 4 * (moments['m11'] ** 2)) / ((moments['m20'] + moments['m02']) ** 2)
+        # calculate the roundness
+        #roundness = cv2.arcLength(contours[0], True) ** 2 / cv2.contourArea(contours[0]) - 2 * math.pi
+
+        # calculate the openness of the eye based on the ratio of the contour
+        contour_min_x = np.min(contours[0][:, :, 0])
+        contour_max_x = np.max(contours[0][:, :, 0])
+        contour_min_y = np.min(contours[0][:, :, 1])
+        contour_max_y = np.max(contours[0][:, :, 1])
+        contour_ratio = (contour_max_y - contour_min_y) / (contour_max_x - contour_min_x)
+
+        return x + min_x, y + min_y, normalizedx, normalizedy, contour_ratio, contours, min_x, min_y
     except:
-        return 0, 0, 0.5, 0.5
+        return 0, 0, 0.5, 0.5, 0.5, None, None, None
 
 def shape_to_np(shape):
     coords = np.zeros((68, 2))
