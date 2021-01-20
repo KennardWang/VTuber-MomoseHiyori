@@ -62,7 +62,7 @@ If you find it doesn't recognize well, please try again as following :
 + ***Show your forehead*** : Probably your hair is too long to have side effects on recognition of your eyes.
 ------
 ### UnityAssets Tutorial 
-### ***( If you don't want to know how to make Live2D VTuber, you can skip this part )***
+### ***( If you don't want to know how to import a Live2D VTuber, you can skip this part )***
 + ***Description*** : It is a template for most Cubism Live2D models. If you just want to customize your own Live2D models, probably you can read this tutorial and following steps.
 + ***Recommend Unity Engine*** : Unity 2019.4.1f1 LTS
 + ***Before you start*** : Equip yourselves with knowledge of Unity basic operation
