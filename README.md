@@ -1,8 +1,6 @@
 # VTuber-MomoseHiyori
-![Live2D](https://kennardwang.github.io/ImageSource/Project/Live2D.png)
-### Where does the idea come from ?
-+ Recently, I do some studies on Deep Learning and Computer Vision. At the same time, I realize that I can make a VTuber model by Unity which could simulate my facial expression via computer vision. After watching some tutorials I have made a fantastic Live2D model Momose Hhiyori, and becomes a VTuber successfully !
-------
+<!-- ![Live2D](https://kennardwang.github.io/ImageSource/Project/Live2D.png) -->
+
 ### VTuber Demo
 
 <p align = "center">
@@ -10,9 +8,13 @@
 </p>
 
 + [Watch MP4 DEMO](https://kennardwang.github.io/ImageSource/Project/VTuberDemo.mp4) ( ***I use a mirror camera so that my behavior is opposite to Hiyori's*** )
-+ Test Behavior : **Nod**, **Shake**, **Rotation**, **Eyeball Rotation**, **Blink**, **Eye Half-opening**, **Mouth Opening**
-      
++ Test Behavior : **Nod**, **Shake**, **Rotation**, **Eyeball Rotation**, **Blink**, **Eye Half-opening**, **Mouth Opening**  
 ------
+
+### Where does the idea come from ?
+> Recently, I do some studies on Deep Learning and Computer Vision. At the same time, I realize that I can make a VTuber model by Unity which could simulate my facial expression via computer vision. After watching some tutorials I have made a fantastic Live2D model Momose Hhiyori, and becomes a VTuber successfully !
+------
+
 ### Development Environment
 + Test System : **Windows 10 64bits**
 + Camera : **Integrated Webcam**
@@ -24,6 +26,7 @@
 + Language : **Python 3.7 Anaconda**
 + Main Required Library : **opencv**, **dlib**, **numpy**, **torch**
 ------
+
 ### File Explanation
 | File | Explanation |
 |:---:|:---:|
@@ -31,6 +34,7 @@
 | ***UnityAssets*** | Tutorial materials for those want to make Live2D VTuber by self |
 | ***Hiyori酱~*** | Starter, quick mode to start program |
 ------
+
 ### How to be a VTuber ?
 
 > 1. Download and unzip ZIP source file
@@ -54,6 +58,7 @@
 > 7. If **ひよりちゃん** start to simulate your facial expression, congratulations! You have been a VTuber now!
 > 8. The [latest verion](https://github.com/KennardWang/VTuber-MomoseHiyori/releases) has been released, you can download and use them.
 ------
+
 ### Tips
 If you find it doesn't recognize well, please try again as following :
 + ***Use brighter light*** : To make your face more clearly, using both natural light and point light seems perfect.
@@ -61,6 +66,14 @@ If you find it doesn't recognize well, please try again as following :
 + ***Do not wear glasses*** : Glasses probably influence on the accuracy of eye recognition.
 + ***Show your forehead*** : Probably your hair is too long to have side effects on recognition of your eyes.
 ------
+
+### Optimization
++ Use Live2D instead of 3D model
++ Add 2 eye events : **Eye Half-opening** and **Eyeball Rotation**
++ Optimize some parameters and be more accurate
++ Easy start and fixed window at top without boundary, more convenient for live streaming
+------
+
 ### UnityAssets Tutorial 
 ### ***( If you don't want to know how to import a Live2D VTuber, you can skip this part )***
 + ***Description*** : It is a template for most Cubism Live2D models. If you just want to customize your own Live2D models, probably you can read this tutorial and following steps.
@@ -112,12 +125,7 @@ If you find it doesn't recognize well, please try again as following :
 + ***Recommendation for Model Website*** : https://www.live2d.com/en/download/sample-data/
 + ***Now, enjoy making your own Live2D VTuber !!***
 ------
-### Optimization
-+ Use Live2D instead of 3D model
-+ Add 2 eye events : **Eye Half-opening** and **Eyeball Rotation**
-+ Optimize some parameters and be more accurate
-+ Easy start and fixed window at top without boundary, more convenient for live streaming
-------
+
 ### Credits
 Thanks for following blogs or projects which give me a reference :
 
@@ -128,15 +136,17 @@ Thanks for following blogs or projects which give me a reference :
 
   > | Project | Author | LICENSE |
   > |:---:|:---:|:---:|
-  > | [VTuber_Unity](https://github.com/kwea123/VTuber_Unity) | [AI葵](https://github.com/kwea123) | [LICENSE](https://github.com/kwea123/VTuber_Unity/blob/master/LICENSE) |
   > | [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) | [Yin Guobing](https://github.com/yinguobing) | [LICENSE](https://github.com/yinguobing/head-pose-estimation/blob/master/LICENSE) |
   > | [face-alignment](https://github.com/1adrianb/face-alignment) | [Adrian Bulat](https://github.com/1adrianb) | [LICENSE](https://github.com/1adrianb/face-alignment/blob/master/LICENSE) |
   > | [GazeTracking](https://github.com/antoinelame/GazeTracking) | [Antoine Lamé](https://github.com/antoinelame) | [LICENSE](https://github.com/antoinelame/GazeTracking/blob/master/LICENSE) |
+  > | [VTuber_Unity](https://github.com/kwea123/VTuber_Unity) | [AI葵](https://github.com/kwea123) | [LICENSE](https://github.com/kwea123/VTuber_Unity/blob/master/LICENSE) |
 + [Model by Artist ***kani_biimu***](https://www.live2d.jp/en/terms/live2d-free-material-license-agreement/)
 ------
+
 ### License
 + [MIT License](https://github.com/KennardWang/VTuber-MomoseHiyori/blob/master/LICENSE)
 ------
+
 ### Author
 + Kennard Wang ( 2020.6.27 )
 ------
