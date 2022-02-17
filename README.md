@@ -9,12 +9,20 @@
 ### VTuber Demo
 
 <p align = "center">
-    Face Behavior Test : Nodding, Head shaking, Head rotation, Eyeball rotation, Eye blinking, Eye half-opening, Mouth opening
+    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/VTuberDemo.gif" width = "480px" height = "360px"/>
+</p>
+
+<br>
+<br>
+
+<p align = "center">
+    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/FaceTrack1.gif" width = "480px" height = "250px"/>
+    &nbsp;&nbsp;&nbsp;
+    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/FaceTrack2.gif" width = "480px" height = "250px"/>
 </p>
 
 <p align = "center">
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/VTuberDemo.gif" width = "480px" height = "360px">
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/FaceTrack.gif" width = "480px" height = "360px">
+    Face Behavior Test : Head shaking, Nodding, Head rotation, Eye blinking, Eye half-opening, Eyeball rotation, Mouth opening.
 </p>
 
 ------
@@ -27,7 +35,7 @@
 |Camera|Integrated Webcam|
 |Algorithm Language|Python 3.7 (Anaconda)|
 |IDE|PyCharm 2019.2.5|
-|Related Libraries|**opencv**, **dlib**, **numpy**, **torch**|
+|Related Libraries|**opencv**, **dlib**, **numpy**, **pytorch**|
 |Model Tool|Live2D Cubism Editor 4.0|
 |Unity Engine|Unity 2019.4.1f1 LTS| 
 |Script Language|C#|
