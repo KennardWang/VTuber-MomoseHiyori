@@ -1,5 +1,5 @@
-numpy<1.17
+numpy
 opencv-python>4
-torch<=1.2.0
+torch
 numba
 scipy>0.16

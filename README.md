@@ -28,49 +28,62 @@
 
 ### Development Environment
 
-|Description|Specification|
-|:---:|:---:|
-|System|Windows 10|
-|Camera|Integrated Webcam|
-|Algorithm Language|Python 3.7 (Anaconda)|
-|IDE|PyCharm 2019.2.5|
-|Related Libraries|**opencv**, **dlib**, **numpy**, **pytorch**|
-|Model Tool|Live2D Cubism Editor 4.0|
-|Unity Engine|Unity 2019.4.1f1 LTS| 
-|Script Language|C#|
+|    Description     |                Specification                 |
+| :----------------: | :------------------------------------------: |
+|       System       |                  Windows 10                  |
+|       Camera       |              Integrated Webcam               |
+| Algorithm Language |            Python 3.7 (Anaconda)             |
+|        IDE         |               PyCharm 2019.2.5               |
+| Related Libraries  | **opencv**, **dlib**, **numpy**, **pytorch** |
+|     Model Tool     |           Live2D Cubism Editor 4.0           |
+|    Unity Engine    |             Unity 2019.4.1f1 LTS             |
+|  Script Language   |                      C#                      |
 
 ------
 
-### File Specification
+### Folder Specification
 
 + ***Recognition*** : Packed algorithm for face recognition.
 + ***UnityAssets*** : Unity materials for those who want to make Live2D VTuber by themselves.
-+ ***Hiyori酱~*** : A quick start program.
 
 ------
 
 ### Usage
 
-> 1. Download and unzip ZIP source file
-> 2. Install required python libraries ( ***recommend Anaconda*** )  
->  + I do not test at other operating system, if your OS is not Windows, you'd better test it by yourself
->  + Windows
->     + There are some libraries that I use, you can use `pip install -r requirements.txt` to install as you like
->     + CPU ( ***recommend for testing*** )
->        +  Libraries Installation by `pip install -r requirements_cpu.txt`
->        +  Open ***Anaconda Prompt*** to install `dlib` by `conda install -c menpo dlib` if it doesn't work
->     + GPU
->        + Firstly, please check the your CUDA version : ***9.0 / 10.1 / 10.2 / None***
->        + Install [pytorch](https://pytorch.org/) by running corresponding command such as `conda install pytorch torchvision cudatoolkit=10.2 -c pytorch` for 10.2
->        + Install other libraries by `pip install -r requirements_gpu.txt`.
->        + If you have CUDA 10, `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
-> 
-> 3. Download `VTuber_Hiyori.zip` and `ckpts.zip` ( If you want to use `onnxruntime` to get faster speed ) at [Release](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v1.2.0)
-> 4. Unzip `ckpts` and put it under `Recognition\face_alignment` 
-> 5. Unzip `VTuber_Hiyori` and start `VTuber_MomoseHiyori.exe` ( Please ***wait*** and do not start any other applications simultaneously !!! )
-> 6. Run `Hiyori酱~.bat`
-> 7. If **ひよりちゃん** start to simulate your facial expression, congratulations! You have been a VTuber now!
-> 8. The [latest verion](https://github.com/KennardWang/VTuber-MomoseHiyori/releases) has been released, you can download and use them.
+**Step 0 : Reparation**
+
+1. Prepare Python IDE (recommend [Pycharm](https://www.jetbrains.com/pycharm/download/#section=windows)) and install Python 3.7 (recommend [Anaconda](https://www.anaconda.com/products/individual)).
+2. Download [ckpts](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/Dependency) model, unzip and place it as `Recognition\face_alignment\ckpts`.
+3. Download [VTuber_MomoseHiyori](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v2.0.0) application folder.
+4. Clone the repository by `git clone https://github.com/KennardWang/VTuber-MomoseHiyori.git`.
+5. Enter the root by `cd Recognition`.
+
+<br>
+
+**Step 1 : Test Camera**
+
+There are 2 types of running environments, please choose the correct one based on individual conditions.
+
++ CPU env
+  1. Install related dependencies by `pip install -r requirements_cpu.txt`.
+  2. Install `dlib` by `conda install -c menpo dlib`.
+  3. Finally, run `python main.py --debug --cpu` to test.
+  4. If it runs normally, you can see your face, and press `q` to end up.
+
++ GPU env
+  1. Install related dependencies by `pip install -r requirements_gpu.txt`.
+  2. Download and install [CUDA v10.0](https://github.com/KennardWang/funcom_reproduction/releases/tag/environment).
+  3. Install [pytorch](https://pytorch.org/) by `conda install pytorch==1.5.0 torchvision==0.6.0 cudatoolkit=10.0 -c pytorch`.
+  4. Finally, run `python main.py --debug` to test.
+  5. If it runs normally, you can see your face, and press `q` to end up.
+
+<br>
+
+**Step 2 : Connect Unity**
+
+1. Click `VTuber_MomoseHiyori.exe` to run.
+2. In CPU env, run `python main.py --debug --cpu --connect`.
+3. In GPU env, run `python main.py --debug --connect`.
 
 ------
 
@@ -89,7 +102,6 @@ The following tips may help to improve the effect:
 + Add two eye-events : **Eye Half-opening** and **Eyeball Rotation**.
 + Optimize some parameters to improve accuracy.
 + Fixed window at top without boundary, which is more convenient for live streaming.
-+ Implement quick start program.
 
 ------
 
