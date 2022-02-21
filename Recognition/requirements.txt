@@ -1,5 +1,4 @@
 numpy
 opencv-python>4
-torch
 numba
 scipy>0.16
