@@ -78,8 +78,8 @@ There are 2 types of running environments, please choose the correct one based o
 <br>
 
 <p align = "center">
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/cpu.gif" width = "400px" height = "210px"/>
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/gpu.gif" width = "400px" height = "210px"/>
+    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/cpu.gif" width = "400px" height = "230px"/>
+    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/gpu.gif" width = "400px" height = "230px"/>
 </p>
 
 <p align = "center">
@@ -99,8 +99,8 @@ There are 2 types of running environments, please choose the correct one based o
 ### Tips
 The following tips may help to improve the effect:
 
-+ ***Use brighter light*** : Try to make your face look more clear, using both the natural light and the point light seems better.
-+ ***Adjust the position*** : The debug mode of the camera may help you to know the position of your face. Try to make the green frame larger and central but not over the boundary.
++ ***Use spotlight*** : Try to make your face look brighter, the spotlight probably shows better effect than the natural light.
++ ***Adjust the face position*** : The debug mode of the camera may help you to know the position of your face. Try to make the green frame larger and central but not over the boundary.
 + ***Do not wear glasses*** : Wearing glasses may influence the accuracy of eye recognition.
 + ***Show your forehead*** : If your hair is so long that covers your eyes, it will have side effects on the accuracy of eye recognition.
 
