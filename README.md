@@ -83,7 +83,10 @@ There are 2 types of running environments, please choose the correct one based o
 </p>
 
 <p align = "center">
-    CPU env (left) and GPU env (right). It seems that GPU env has the better fluency and consecutiveness but the lower FPS by virtue of the busier data IO.
+    CPU env (left) has the higher FPS but the lower accuracy. (It cannot recognize well if some parts of the face are covered.)
+</p>
+<p align = "center">
+    GPU env (right) has the higher accuracy, the better fluency and consecutiveness but the lower FPS by virtue of the busier data IO.
 </p>
 
 <br>
