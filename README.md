@@ -50,7 +50,7 @@
 
 ### Usage
 
-**Step 0 : Reparation**
+**Step 0 : Preparation**
 
 1. Prepare Python IDE (recommend [Pycharm](https://www.jetbrains.com/pycharm/download/#section=windows)) and install Python 3.7 (recommend [Anaconda](https://www.anaconda.com/products/individual)).
 2. Download [ckpts](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/dependency) model, unzip and place it as `Recognition\face_alignment\ckpts`.
