@@ -1,17 +1,15 @@
 import os
-
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-
 import socket
 import time
 from argparse import ArgumentParser
 from collections import deque
 from platform import system
-
 from head_pose_estimation.misc import *
 from head_pose_estimation.pose_estimator import PoseEstimator
 from head_pose_estimation.stabilizer import Stabilizer
 from head_pose_estimation.visualization import *
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 
 def get_face(detector, image, cpu=False):
@@ -83,6 +81,15 @@ def main():
     no_face_count = 0
     prev_boxes = deque(maxlen=5)
     prev_marks = deque(maxlen=5)
+    roll = 0.0
+    pitch = 0.0
+    yaw = 0.0
+    eye_open = 0.0
+    eye_diff = 0.0
+    eyeballX = 0.0
+    eyeballY = 0.0 
+    mouthWidth = 0.0 
+    mouthVar = 0.0
 
     while True:
         _, frame = cap.read()
@@ -156,19 +163,19 @@ def main():
                     ps_stb.update([value])
                     steady_pose.append(ps_stb.state[0])
 
-            roll = np.clip(-(180 + np.degrees(steady_pose[2])), -50, 50)
-            pitch = np.clip(-(np.degrees(steady_pose[1])) - 15, -40, 40)  # the 15 here is my camera angle.
-            yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
+                roll = np.clip(-(180 + np.degrees(steady_pose[2])), -50, 50)
+                pitch = np.clip(-(np.degrees(steady_pose[1])) - 15, -40, 40)  # the 15 here is my camera angle.
+                yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
 
-            # modified by Kennard
-            eye_left = eye_aspect_ratio(marks[36:42])
-            eye_right = eye_aspect_ratio(marks[42:48])
-            eye_open = min(eye_left, eye_right)
-            eye_diff = eye_left - eye_right
-            eyeballX = (steady_pose[6] - 0.45) * (-2)  # calibrate
-            eyeballY = (steady_pose[7] - 0.38) * 2  # calibrate
-            mouthVar = mouth_aspect_ration(marks[60:68])
-            mouthWidth = mouth_distance(marks[60:68]) / (facebox[2] - facebox[0]) + 0.4  # calibrate
+                # modified by Kennard
+                eye_left = eye_aspect_ratio(marks[36:42])
+                eye_right = eye_aspect_ratio(marks[42:48])
+                eye_open = min(eye_left, eye_right)
+                eye_diff = eye_left - eye_right
+                eyeballX = (steady_pose[6] - 0.45) * (-2)  # calibrate
+                eyeballY = (steady_pose[7] - 0.38) * 2  # calibrate
+                mouthVar = mouth_aspect_ration(marks[60:68])
+                mouthWidth = mouth_distance(marks[60:68]) / (facebox[2] - facebox[0]) + 0.4  # calibrate
 
             if args.debug:  # draw landmarks, etc.
 
