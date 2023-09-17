@@ -1,10 +1,30 @@
 # VTuber-MomoseHiyori
 
 <div align="center">
-  <img src="https://img.shields.io/github/stars/KennardWang/VTuber-MomoseHiyori" />
-  <img src="https://img.shields.io/github/forks/KennardWang/VTuber-MomoseHiyori" />
-  <img src="https://img.shields.io/github/license/KennardWang/VTuber-MomoseHiyori" />
-  <img src="https://img.shields.io/badge/maintenance-No-red" />
+  
+  [![description](https://img.shields.io/badge/project-Individual-1F1F1F?style=for-the-badge)](https://github.com/KennardWang/VTuber-MomoseHiyori)
+  &nbsp;
+  [![stars](https://img.shields.io/github/stars/KennardWang/VTuber-MomoseHiyori?style=for-the-badge&color=FDEE21)](https://github.com/KennardWang/VTuber-MomoseHiyori/stargazers)
+  &nbsp;
+  [![forks](https://img.shields.io/github/forks/KennardWang/VTuber-MomoseHiyori?style=for-the-badge&color=white)](https://github.com/KennardWang/VTuber-MomoseHiyori/forks)
+  &nbsp;
+  [![contributors](https://img.shields.io/github/contributors/KennardWang/VTuber-MomoseHiyori?style=for-the-badge&color=8BC0D0)](https://github.com/KennardWang/VTuber-MomoseHiyori/graphs/contributors)
+  
+  <img src="https://img.shields.io/badge/windows-0078D6?logo=windows&logoColor=white&style=for-the-badge" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/conda-342B029.svg?&style=for-the-badge&logo=anaconda&logoColor=white" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=OpenCV&logoColor=white" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/PyCharm-000000.svg?&style=for-the-badge&logo=PyCharm&logoColor=white" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white" />
 </div>
 
 <br>
@@ -177,13 +197,13 @@ If it runs normally, you can see your face, and press `q` to quit.
 
 ## Releases
 
-[The latest version](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v2.0.0).
+[![badge](https://img.shields.io/badge/release-v2.0.0-FF7800)](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v2.0.0)
 
 
 
 ## Maintainers
 
-[@KennardWang](https://github.com/KennardWang).
+![badge](https://img.shields.io/badge/maintenance-NO-EF2D5E) [@KennardWang](https://github.com/KennardWang)
 
 
 
@@ -195,4 +215,4 @@ Feel free to [open an issue](https://github.com/KennardWang/VTuber-MomoseHiyori/
 
 ## License
 
-[MIT](LICENSE) © Kennard Wang. ( 2020.6.27 )
+[![license](https://img.shields.io/github/license/KennardWang/VTuber-MomoseHiyori)](LICENSE) © Kennard Wang ( 2020.6.27 )
