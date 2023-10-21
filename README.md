@@ -53,35 +53,36 @@ Hello,👋 I am Momose Hiyori, a Live2D VTuber from Japan. I am really good at m
 
 ## Table of Contents
 
-- [Development Environment](#development-environment)
-- [Install](#install)
-- [Usage](#usage)
-- [Highlights](#highlights)
-- [File Description](#file-description)
-- [References](#references)
-- [Releases](#releases)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
-- [License](#license)
+- [VTuber-MomoseHiyori](#vtuber-momosehiyori)
+  - [Table of Contents](#table-of-contents)
+  - [Development Environment](#development-environment)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Highlights](#highlights)
+  - [File Description](#file-description)
+  - [References](#references)
+  - [Releases](#releases)
+  - [Maintainers](#maintainers)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 
 
 ## Development Environment
 
-|      <!-- -->      |             <!-- -->              |
-| :----------------: | :-------------------------------: |
-|       System       |            Windows 10 x64         |
-|      Language      |       Python 3.7 Anaconda (algorithm) / C# (Live2D model)     |
-|        IDE         |     PyCharm 2019.2.5 (algorithm) / Live2D Cubism Editor 4.0 (Live2D model) / Unity 2019.4.1f1 LTS (Live2D model)   |
+| <!-- --> |                                                   <!-- -->                                                   |
+| :------: | :----------------------------------------------------------------------------------------------------------: |
+|  System  |                                                Windows 10 x64                                                |
+| Language |                             Python 3.7 Anaconda (algorithm) / C# (Live2D model)                              |
+|   IDE    | PyCharm 2019.2.5 (algorithm) / Live2D Cubism Editor 4.0 (Live2D model) / Unity 2019.4.1f1 LTS (Live2D model) |
 
 
 
 ## Install
 
 1. Install [Pycharm](https://www.jetbrains.com/pycharm/download/#section=windows) and Python 3.7 (recommend [Anaconda](https://www.anaconda.com/products/individual)).
-2. Download models in [ckpts](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/dependency), unzip and place it at `face_alignment/ckpts`.
-3. Download folder [VTuber_MomoseHiyori](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v2.0.0) which contains the executable file.
-4. Environment configuration.
+2. Download folder [VTuber_MomoseHiyori](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v2.0.0) which contains the executable file.
+3. Environment configuration.
 
     ```
     git clone https://github.com/KennardWang/VTuber-MomoseHiyori.git
@@ -89,14 +90,14 @@ Hello,👋 I am Momose Hiyori, a Live2D VTuber from Japan. I am really good at m
     conda env create -f environment.yml
     ```
    
-5. Activate environment and install dependencies.
+4. Activate environment and install dependencies.
 
     ```
     conda activate live2d_vtb
     pip install -r requirements.txt
     ```
    
-6. There are 2 types of running environments, please choose the correct one based on individual conditions.
+5. There are 2 types of running environments, please choose the correct one based on individual conditions.
    + CPU env
        + Install **dlib**, my version is v19.22.0.
      
@@ -117,6 +118,8 @@ Hello,👋 I am Momose Hiyori, a Live2D VTuber from Japan. I am really good at m
           ```
           pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
           ```
+
+        + (Optional) Download models in [ckpts](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/dependency), unzip and place it at `face_alignment/ckpts`. If not, it will automatically download from the site.
 
 
 
@@ -170,6 +173,9 @@ If it runs normally, you can see your face, and press `q` to quit.
      python main.py --debug --gpu --connect
      ```
 
+**Optional : Set Port Number**
+
+  The default port number is 14514, you could set another port number via `--port=PORT_NUMBER`, but keep it the same as that in the Unity client.
 
 **Tips to improve the effect**
 
@@ -190,8 +196,8 @@ If it runs normally, you can see your face, and press `q` to quit.
 
 ## File Description
 
-| File/Folder | Description |
-| :---: | --- |
+| File/Folder | Description                                                                                                                                                   |
+| :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | UnityAssets | Unity materials for those who want to make Live2D VTuber by themselves, please visit [tutorial](https://github.com/KennardWang/VTuber-MomoseHiyori/issues/3). |
 
 

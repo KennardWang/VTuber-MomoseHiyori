@@ -4,13 +4,14 @@ import numpy as np
 import socket
 import time
 import dlib
+import face_alignment
 import utils
 
 from platform import system
 from argparse import ArgumentParser
 from collections import deque
-from pose_estimator import PoseEstimator
-from stabilizer import Stabilizer
+from face_pose.pose_estimator import PoseEstimator
+from face_pose.stabilizer import Stabilizer
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
@@ -99,12 +100,10 @@ def run():
 
     # Setup face detection models
     if not args.gpu:  # CPU: use dlib
-        dlib_model_path = 'shape_predictor_68_face_landmarks.dat'
+        dlib_model_path = 'face_pose/shape_predictor_68_face_landmarks.dat'
         shape_predictor = dlib.shape_predictor(dlib_model_path)
         face_detector = dlib.get_frontal_face_detector()
     else:  # GPU: use FAN (better)
-        import face_alignment
-
         fa = face_alignment.FaceAlignment(
             face_alignment.LandmarksType._2D, flip_input=False)
         face_detector = fa.face_detector
@@ -170,7 +169,7 @@ def run():
         if facebox is not None:
             prev_boxes.append(facebox)
 
-            # Facial landmark detection and iris detection on every frame
+            # Face landmark detection and iris detection on every frame
             if not args.gpu:
                 face = dlib.rectangle(left=facebox[0], top=facebox[1],
                                       right=facebox[2], bottom=facebox[3])
@@ -218,28 +217,30 @@ def run():
                     ps_stb.update([value])
                     steady_pose.append(ps_stb.state[0])
 
-                # Calibrate: pitch(15 is camera angle), eyeballX, eyeballY, mouthWidth
-                # Head
-                roll = np.clip(-(180 + np.degrees(steady_pose[2])), -50, 50)
-                pitch = np.clip(-(np.degrees(steady_pose[1])+15), -40, 40)
-                yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
+                if args.connect:
+                    # Calibrate: pitch(15 is camera angle), eyeballX, eyeballY, mouthWidth
+                    # Head
+                    roll = np.clip(-(180 +
+                                     np.degrees(steady_pose[2])), -50, 50)
+                    pitch = np.clip(-(np.degrees(steady_pose[1])+15), -40, 40)
+                    yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
 
-                # Eyes
-                eye_left = utils.eye_aspect_ratio(marks[36:42])
-                eye_right = utils.eye_aspect_ratio(marks[42:48])
-                eye_open = (eye_left + eye_right) / 2
-                eye_diff = abs(eye_left - eye_right)
-                eyeballX = (steady_pose[6] - 0.45) * (-4)
-                eyeballY = (steady_pose[7] - 0.38) * 2
+                    # Eyes
+                    eye_left = utils.eye_aspect_ratio(marks[36:42])
+                    eye_right = utils.eye_aspect_ratio(marks[42:48])
+                    eye_open = (eye_left + eye_right) / 2
+                    eye_diff = abs(eye_left - eye_right)
+                    eyeballX = (steady_pose[6] - 0.45) * (-4)
+                    eyeballY = (steady_pose[7] - 0.38) * 2
 
-                # Mouth
-                mouthWidth = utils.mouth_distance(
-                    marks[60:68]) / (facebox[2] - facebox[0]) + 0.4
-                mouthVar = utils.mouth_aspect_ration(marks[60:68])
+                    # Mouth
+                    mouthWidth = utils.mouth_distance(
+                        marks[60:68]) / (facebox[2] - facebox[0]) + 0.4
+                    mouthVar = utils.mouth_aspect_ration(marks[60:68])
 
-                # Update
-                sock.update_all(roll, pitch, yaw, eye_open, eye_diff,
-                                eyeballX, eyeballY, mouthWidth, mouthVar)
+                    # Update
+                    sock.update_all(roll, pitch, yaw, eye_open, eye_diff,
+                                    eyeballX, eyeballY, mouthWidth, mouthVar)
 
             # In debug mode, show the marks
             if args.debug:
@@ -296,15 +297,15 @@ if __name__ == '__main__':
     parser.add_argument("--debug", action="store_true",
                         help="show image and marks",
                         default=False)
+    parser.add_argument("--gpu", action="store_true",
+                        help="use GPU to do face detection and face landmark detection",
+                        default=False)
     parser.add_argument("--connect", action="store_true",
                         help="connect to unity character",
                         default=False)
     parser.add_argument("--port", type=int,
-                        help="set port to connect",
+                        help="set port number to connect",
                         default=14514)
-    parser.add_argument("--gpu", action="store_true",
-                        help="use GPU to do face detection and facial landmark detection",
-                        default=False)
     args = parser.parse_args()
 
     run()
