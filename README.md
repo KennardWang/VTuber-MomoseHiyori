@@ -53,18 +53,16 @@ Hello,👋 I am Momose Hiyori, a Live2D VTuber from Japan. I am really good at m
 
 ## Table of Contents
 
-- [VTuber-MomoseHiyori](#vtuber-momosehiyori)
-  - [Table of Contents](#table-of-contents)
-  - [Development Environment](#development-environment)
-  - [Install](#install)
-  - [Usage](#usage)
-  - [Highlights](#highlights)
-  - [File Description](#file-description)
-  - [References](#references)
-  - [Releases](#releases)
-  - [Maintainers](#maintainers)
-  - [Contributing](#contributing)
-  - [License](#license)
+- [Development Environment](#development-environment)
+- [Install](#install)
+- [Usage](#usage)
+- [Highlights](#highlights)
+- [File/Folder Description](#filefolder-description)
+- [References](#references)
+- [Releases](#releases)
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
 
 
 
@@ -73,8 +71,8 @@ Hello,👋 I am Momose Hiyori, a Live2D VTuber from Japan. I am really good at m
 | <!-- --> |                                                   <!-- -->                                                   |
 | :------: | :----------------------------------------------------------------------------------------------------------: |
 |  System  |                                                Windows 10 x64                                                |
-| Language |                             Python 3.7 Anaconda (algorithm) / C# (Live2D model)                              |
-|   IDE    | PyCharm 2019.2.5 (algorithm) / Live2D Cubism Editor 4.0 (Live2D model) / Unity 2019.4.1f1 LTS (Live2D model) |
+| Language |                              Python 3.7 Anaconda (algorithm), C# (Live2D model)                              |
+|   IDE    |  PyCharm 2019.2.5 (algorithm), Live2D Cubism Editor 4.0 (Live2D model), Unity 2019.4.1f1 LTS (Live2D model)  |
 
 
 
@@ -177,7 +175,9 @@ If it runs normally, you can see your face, and press `q` to quit.
 
   The default port number is 14514, you could set another port number via `--port=PORT_NUMBER`, but keep it the same as that in the Unity client.
 
-**Tips to improve the effect**
+<br>
+
+**Tips : Improve Performance**
 
 + Use spotlight: Try to make your face look brighter, the spotlight probably shows a better effect than the natural light.
 + Adjust face position: The debug mode of the camera may help you to know the position of your face. Try to put your face in a central position, and let the frame extend but not reach the boundary.
@@ -194,11 +194,15 @@ If it runs normally, you can see your face, and press `q` to quit.
 
 
 
-## File Description
+## File/Folder Description
 
-| File/Folder | Description                                                                                                                                                   |
+| File / Folder | Description                                                                                                                                                   |
 | :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | UnityAssets | Unity materials for those who want to make Live2D VTuber by themselves, please visit [tutorial](https://github.com/KennardWang/VTuber-MomoseHiyori/issues/3). |
+| face_alignment | Module for face alignment. |
+| face_pose | Module for face pose detection. |
+| main.py | Main program. |
+| utils.py | Utilities. |
 
 
 
