@@ -1,0 +1,9 @@
+name: live2d_vtb
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.7
+  - pip
+  - flake8
+  - pytest

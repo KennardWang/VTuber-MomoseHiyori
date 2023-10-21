@@ -1,4 +1,0 @@
-numpy
-opencv-python>4
-numba
-scipy>0.16
