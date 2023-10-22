@@ -91,7 +91,7 @@ Hello,👋 I am Momose Hiyori, a Live2D VTuber from Japan. I am really good at m
 4. Activate environment and install dependencies.
 
     ```
-    conda activate live2d_vtb
+    conda activate l2d-vtb
     pip install -r requirements.txt
     ```
    
@@ -157,7 +157,7 @@ If it runs normally, you can see your face, and press `q` to quit.
 
 **Step 2 : Connect Unity**
 
-1. For Windows OS, click `VTuber_MomoseHiyori.exe` to run.
+1. Run the executable file in `VTuber_MomoseHiyori`.
 2. Execute the command according to your env.
    + CPU env
      
@@ -197,12 +197,12 @@ If it runs normally, you can see your face, and press `q` to quit.
 ## File/Folder Description
 
 | File / Folder | Description                                                                                                                                                   |
-| :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :---------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | UnityAssets | Unity materials for those who want to make Live2D VTuber by themselves, please visit [tutorial](https://github.com/KennardWang/VTuber-MomoseHiyori/issues/3). |
 | face_alignment | Module for face alignment. |
 | face_pose | Module for face pose detection. |
 | main.py | Main program. |
-| utils.py | Utilities. |
+| utils.py | File with utility functions. |
 
 
 
@@ -227,13 +227,27 @@ If it runs normally, you can see your face, and press `q` to quit.
 
 ## Maintainers
 
-![badge](https://img.shields.io/badge/maintenance-YES-EF2D5E) [@KennardWang](https://github.com/KennardWang)
+![badge](https://img.shields.io/badge/maintenance-NO-EF2D5E) [@KennardWang](https://github.com/KennardWang)
 
 
 
 ## Contributing
 
-Feel free to [open an issue](https://github.com/KennardWang/VTuber-MomoseHiyori/issues) or submit [PRs](https://github.com/KennardWang/VTuber-MomoseHiyori/pulls).
+Feel free to [open an issue](https://github.com/KennardWang/VTuber-MomoseHiyori/issues) or submit [PRs](https://github.com/KennardWang/VTuber-MomoseHiyori/pulls). Be careful that the submitted code needs to pass format tests and pytests by GitHub Actions, please self-check before pulling requests.
+
++ flake8 format test (Windows, Mac and Linux) [![1](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/flake8.yml/badge.svg)](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/flake8.yml)
+
+  ```
+  flake8 --exclude=face_alignment,face_pose --ignore=E501 .
+  ```
+
++ pytest (Windows, Mac and Linux) [![2](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/pytest.yml/badge.svg)](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/pytest.yml)
+
+  ```
+  pytest tests/test_win.py
+  pytest tests/test_mac.py
+  pytest tests/test_linux.py
+  ```
 
 
 
