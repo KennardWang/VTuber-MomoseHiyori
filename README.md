@@ -14,13 +14,15 @@
   &nbsp;
   <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue" />
   &nbsp;
-  <img src="https://img.shields.io/badge/conda-342B029.svg?&style=for-the-badge&logo=anaconda&logoColor=white" />
+  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white" />
   &nbsp;
   <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
   &nbsp;
+  <img src="https://img.shields.io/badge/conda-342B029.svg?&style=for-the-badge&logo=anaconda&logoColor=white" />
+  &nbsp;
   <img src="https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=OpenCV&logoColor=white" />
   &nbsp;
-  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white" />
+  <img src="https://img.shields.io/badge/Dlib-008000?logo=dlib&logoColor=fff&style=for-the-badge" />
   &nbsp;
   <img src="https://img.shields.io/badge/PyCharm-000000.svg?&style=for-the-badge&logo=PyCharm&logoColor=white" />
   &nbsp;
@@ -171,9 +173,9 @@ If it runs normally, you can see your face, and press `q` to quit.
      python main.py --debug --gpu --connect
      ```
 
-**Optional : Set Port Number**
+**Optional : Set Parameters**
 
-  The default port number is 14514, you could set another port number via `--port=PORT_NUMBER`, but keep it the same as that in the Unity client.
+There are some parameters you can change. The default port number is 14514, you could set another port number via `--port=PORT_NUMBER`, but keep it the same as that in the Unity client. Moreover, you can set the camera via `--cam=CAM_INDEX` if you have more than one camera, the default camera index is 0. Please check the guidance of all parameters by using `python main.py --help`.
 
 <br>
 
@@ -199,9 +201,11 @@ If it runs normally, you can see your face, and press `q` to quit.
 | File / Folder | Description                                                                                                                                                   |
 | :---------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | UnityAssets | Unity materials for those who want to make Live2D VTuber by themselves, please visit [tutorial](https://github.com/KennardWang/VTuber-MomoseHiyori/issues/3). |
-| face_alignment | Module for face alignment. |
-| face_pose | Module for face pose detection. |
+| face_alignment | Module for face detection and landmarks by a powerful face alignment network (FAN), has better performance under GPU env. |
+| face_pose | Module for face pose detection, contains the pose estimator and stabilizer. |
+| tests | Test folder for GitHub Action. |
 | main.py | Main program. |
+| sock.py | File with Socket class. |
 | utils.py | File with utility functions. |
 
 
