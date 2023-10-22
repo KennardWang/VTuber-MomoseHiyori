@@ -17,7 +17,7 @@ def test_module_install_cpu():
 
 
 def test_module_install_gpu():
-    modules = ['scipy']
+    modules = ['scipy', 'torch']
 
     # Test scipy module
     try:
@@ -34,3 +34,20 @@ def test_module_install_gpu():
 
     except ModuleNotFoundError:
         assert False, f"Module {modules[0]} is not correctly installed."
+
+    # Test torch module
+    try:
+        # Test import
+        m1 = importlib.import_module(modules[1])
+        assert m1 is not None
+
+        # Test version
+        v1 = pkg_resources.get_distribution(modules[1]).version
+        assert v1 is not None
+
+        # Test CUDA
+        print(m1.__version__)
+        # assert m1.cuda.is_available()
+
+    except ModuleNotFoundError:
+        assert False, f"Module {modules[1]} is not correctly installed."

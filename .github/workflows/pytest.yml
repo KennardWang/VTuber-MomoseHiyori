@@ -90,7 +90,7 @@ jobs:
           pip install -r requirements.txt
           conda install -c conda-forge dlib
           pip install scipy>0.16
-          pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
+          pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio==0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
     
       - name: Run tests
         run: |
