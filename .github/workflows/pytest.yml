@@ -1,4 +1,4 @@
-name: environment-setup
+name: pytest-environment-setup
 
 on:
    push:
@@ -20,12 +20,12 @@ jobs:
       - uses: actions/checkout@v2
       - uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: live2d-vtb
+          activate-environment: l2d-vtb
           environment-file: environment.yml
           python-version: "3.7"
       - run: |
           conda env list
-          conda activate live2d-vtb
+          conda activate l2d-vtb
       - name: Install dependencies
         run: |
           pip install --upgrade pip
@@ -34,10 +34,9 @@ jobs:
           pip install scipy>0.16
           pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
     
-      # # Run tests
-      # - name: run tests
-      #   run: |
-      #     pytest tests/
+      - name: Run tests
+        run: |
+          pytest tests/test_linux.py
 
 
   MacOS:
@@ -50,12 +49,40 @@ jobs:
       - uses: actions/checkout@v2
       - uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: live2d-vtb
+          activate-environment: l2d-vtb
           environment-file: environment.yml
           python-version: "3.7"
       - run: |
           conda env list
-          conda activate live2d-vtb
+          conda activate l2d-vtb
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          conda install -c conda-forge dlib
+          pip install scipy>0.16
+    
+      - name: Run tests
+        run: |
+          pytest tests/test_mac.py
+  
+
+  Windows: 
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: l2d-vtb
+          environment-file: environment.yml
+          python-version: "3.7"
+      - run: |
+          conda env list
+          conda activate l2d-vtb
       - name: Install dependencies
         run: |
           pip install --upgrade pip
@@ -64,7 +91,6 @@ jobs:
           pip install scipy>0.16
           pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
     
-      # # Run tests
-      # - name: run tests
-      #   run: |
-      #     pytest tests/
+      - name: Run tests
+        run: |
+          pytest tests/test_win.py

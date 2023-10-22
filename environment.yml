@@ -1,4 +1,4 @@
-name: live2d_vtb
+name: l2d-vtb
 channels:
   - defaults
   - conda-forge
