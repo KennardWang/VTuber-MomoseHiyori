@@ -1,0 +1,70 @@
+name: environment-setup
+
+on:
+   push:
+     branches:
+       - main
+   pull_request:
+     branches:
+       - main
+
+jobs:
+  # ref: https://github.com/marketplace/actions/setup-miniconda
+  Ubuntu: 
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: live2d-vtb
+          environment-file: environment.yml
+          python-version: "3.7"
+      - run: |
+          conda env list
+          conda activate live2d-vtb
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          conda install -c conda-forge dlib
+          pip install scipy>0.16
+          pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
+    
+      # # Run tests
+      # - name: run tests
+      #   run: |
+      #     pytest tests/
+
+
+  MacOS:
+    runs-on: macOS-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: live2d-vtb
+          environment-file: environment.yml
+          python-version: "3.7"
+      - run: |
+          conda env list
+          conda activate live2d-vtb
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          conda install -c conda-forge dlib
+          pip install scipy>0.16
+          pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
+    
+      # # Run tests
+      # - name: run tests
+      #   run: |
+      #     pytest tests/
