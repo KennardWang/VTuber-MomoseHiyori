@@ -81,7 +81,7 @@ def get_face(detector, image, gpu=False):
             x2 = box.right()
             y2 = box.bottom()
             return [x1, y1, x2, y2]
-        except:
+        except Exception:
             return None
     else:
         image = cv2.resize(image, None, fx=0.5, fy=0.5)
@@ -220,9 +220,10 @@ def run():
                 if args.connect:
                     # Calibrate: pitch(15 is camera angle), eyeballX, eyeballY, mouthWidth
                     # Head
-                    roll = np.clip(-(180 +
-                                     np.degrees(steady_pose[2])), -50, 50)
-                    pitch = np.clip(-(np.degrees(steady_pose[1])+15), -40, 40)
+                    roll = np.clip(
+                        -(180 + np.degrees(steady_pose[2])), -50, 50)
+                    pitch = np.clip(
+                        -(np.degrees(steady_pose[1]) + 15), -40, 40)
                     yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
 
                     # Eyes
@@ -246,7 +247,7 @@ def run():
             if args.debug:
 
                 # Show facebox
-                #utils.draw_box(frame, [facebox])
+                # utils.draw_box(frame, [facebox])
 
                 # Show iris
                 if x_l > 0 and y_l > 0:
