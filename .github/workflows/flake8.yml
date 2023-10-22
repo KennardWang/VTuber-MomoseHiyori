@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9"]
+        python-version: ["3.7"]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -22,9 +22,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8
-    - name: Analysing the code with flake8
+    - name: Run flake8
       run: |
-        flake8 $(git ls-files '*.py') --ignore=E501,E402
+        flake8 --exclude=face_alignment,face_pose --ignore=E501 .
 
   # ref: ChatGPT
   MacOS:
@@ -37,12 +37,30 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: 3.7
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install flake8
-    - name: Analysing the code with flake8
+    - name: Run flake8
       run: |
         flake8 --exclude=face_alignment,face_pose --ignore=E501 .
+
+  Windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: Install dependencies
+      run: pip install flake8
+
+    - name: Run flake8
+      run: flake8 --exclude=face_alignment,face_pose --ignore=E501 .
