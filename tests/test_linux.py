@@ -48,7 +48,7 @@ def test_module_install_gpu():
 
         # Test CUDA
         print(m1.__version__)
-        # assert m1.cuda.is_available()
+        assert m1.cuda.is_available()
 
     except ModuleNotFoundError:
         assert False, f"Module {modules[1]} is not correctly installed."
