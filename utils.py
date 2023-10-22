@@ -1,5 +1,36 @@
 import numpy as np
+from platform import system
 import cv2
+
+
+def def_cap(cam):
+    """Define capture"""
+    if system() in ['Windows']:  # Windows OS
+        cap = cv2.VideoCapture(cam + cv2.CAP_DSHOW)
+    else:  # Linux & Mac OS
+        cap = cv2.VideoCapture(cam)
+    return cap
+
+
+def get_face(detector, image, gpu=False):
+    """Capture face"""
+    if not gpu:
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        try:
+            box = detector(image)[0]
+            x1 = box.left()
+            y1 = box.top()
+            x2 = box.right()
+            y2 = box.bottom()
+            return [x1, y1, x2, y2]
+        except Exception:
+            return None
+    else:
+        image = cv2.resize(image, None, fx=0.5, fy=0.5)
+        box = detector.detect_from_image(image)[0]
+        if box is None:
+            return None
+        return (2 * box[:4]).astype(int)
 
 
 def eye_aspect_ratio(eye):

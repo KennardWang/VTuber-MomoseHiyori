@@ -1,99 +1,23 @@
 import os
 import cv2
 import numpy as np
-import socket
 import time
 import dlib
 import face_alignment
 import utils
 
-from platform import system
 from argparse import ArgumentParser
 from collections import deque
 from face_pose.pose_estimator import PoseEstimator
 from face_pose.stabilizer import Stabilizer
+from sock import Socket
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 
-class Socket:
-    """Socket class for message transmission"""
-
-    def __init__(self):
-        self.roll = 0.0
-        self.pitch = 0.0
-        self.yaw = 0.0
-        self.eye_open = 0.0
-        self.eye_diff = 0.0
-        self.eyeballX = 0.0
-        self.eyeballY = 0.0
-        self.mouthWidth = 0.0
-        self.mouthVar = 0.0
-
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    def update_all(self, roll, pitch, yaw, eye_open, eye_diff, eyeballX, eyeballY, mouthWidth, mouthVar):
-        """Update all variables"""
-        self.roll = roll
-        self.pitch = pitch
-        self.yaw = yaw
-        self.eye_open = eye_open
-        self.eye_diff = eye_diff
-        self.eyeballX = eyeballX
-        self.eyeballY = eyeballY
-        self.mouthWidth = mouthWidth
-        self.mouthVar = mouthVar
-
-    def conv2msg(self):
-        """Convert all variables to message data"""
-        self.msg = '%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f' % \
-            (self.roll, self.pitch, self.yaw, self.eye_open, self.eye_diff,
-             self.eyeballX, self.eyeballY, self.mouthWidth, self.mouthVar)
-
-    def connect(self, addr):
-        """Establish connection"""
-        self.s.connect(addr)
-
-    def send(self):
-        """Sending message data"""
-        self.s.send(bytes(self.msg, "utf-8"))
-
-    def close(self):
-        """Close socket"""
-        self.s.close()
-
-
-def def_os():
-    if system() in ['Windows']:  # Windows OS
-        cap = cv2.VideoCapture(args.cam + cv2.CAP_DSHOW)
-    else:  # Linux & Mac OS
-        cap = cv2.VideoCapture(args.cam)
-    return cap
-
-
-def get_face(detector, image, gpu=False):
-    if not gpu:
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        try:
-            box = detector(image)[0]
-            x1 = box.left()
-            y1 = box.top()
-            x2 = box.right()
-            y2 = box.bottom()
-            return [x1, y1, x2, y2]
-        except Exception:
-            return None
-    else:
-        image = cv2.resize(image, None, fx=0.5, fy=0.5)
-        box = detector.detect_from_image(image)[0]
-        if box is None:
-            return None
-        return (2 * box[:4]).astype(int)
-
-
 def run():
     # Define operating system
-    cap = def_os()
+    cap = utils.def_cap(args.cam)
     cap.set(cv2.CAP_PROP_FPS, 30)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     _, sample_frame = cap.read()
@@ -152,7 +76,7 @@ def run():
 
         # Face detection on every odd frame
         if frame_count % 2 == 1:
-            facebox = get_face(face_detector, frame, args.gpu)
+            facebox = utils.get_face(face_detector, frame, args.gpu)
             if facebox is not None:
                 no_face_count = 0
         else:
@@ -281,7 +205,7 @@ def run():
         if args.debug:
             utils.draw_FPS(frame, FPS)
             cv2.imshow("face", frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):  # press q to exit.
+            if cv2.waitKey(1) & 0xFF == ord('q'):  # press q to exit
                 break
 
     # Close all if terminated
