@@ -28,11 +28,11 @@ jobs:
           conda activate l2d-vtb
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
           conda install -c conda-forge dlib
           pip install scipy>0.16
-          pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
+          pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102
     
       - name: Run tests
         run: |
@@ -57,10 +57,11 @@ jobs:
           conda activate l2d-vtb
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
           conda install -c conda-forge dlib
           pip install scipy>0.16
+          pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102
     
       - name: Run tests
         run: |
@@ -85,7 +86,7 @@ jobs:
           conda activate l2d-vtb
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
           conda install -c conda-forge dlib
           pip install scipy>0.16
