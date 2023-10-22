@@ -143,10 +143,12 @@ def run():
 
         t = time.time()
 
-        # Pose estimation by 3 steps:
-        # 1. Face Detection
-        # 2. Landmark Detection
-        # 3. Pose Estimation
+        # Loop
+        # 1. Face detection
+        # 2. Draw face and iris landmarks
+        # 3. Pose estimation and stabilization (face + iris)
+        # 4. Calculate and calibrate message data if low error
+        # 5. Data transmission with socket
 
         # Face detection on every odd frame
         if frame_count % 2 == 1:
@@ -155,6 +157,7 @@ def run():
                 no_face_count = 0
         else:
             if len(prev_boxes) > 1:  # use a linear movement assumption
+
                 # Estimate no more than 1 frame
                 if no_face_count > 1:
                     facebox = None
@@ -169,13 +172,13 @@ def run():
         if facebox is not None:
             prev_boxes.append(facebox)
 
-            # Face landmark detection and iris detection on every frame
+            # Mark face and iris on every frame
             if not args.gpu:
                 face = dlib.rectangle(left=facebox[0], top=facebox[1],
                                       right=facebox[2], bottom=facebox[3])
                 marks = utils.shape_to_np(shape_predictor(frame, face))
             else:
-                # Landmark detection on first frame or every even frame
+                # Draw landmarks on first frame or every even frame
                 if len(prev_marks) == 0 \
                         or frame_count == 1 \
                         or frame_count % 2 == 0:
