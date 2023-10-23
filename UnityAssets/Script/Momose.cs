@@ -59,8 +59,8 @@ public class Momose : MonoBehaviour
     // Model parameter, reference: https://docs.live2d.com/cubism-sdk-tutorials/about-parameterupdating-of-model/?locale=ja
     private CubismModel Model;
     private CubismParameter parameter;
-    private float t1; // time controller for breath
-    private float t2; // time controller for hands
+    private float t1;  // time controller for breath
+    private float t2;  // time controller for hands
     private float angleX;  // head angle
     private float angleY;  // head angle
     private float angleZ;  // head angle
@@ -91,13 +91,13 @@ public class Momose : MonoBehaviour
         mouthWidth = 1.0f;
         mouthVar = 0.0f;
         eyeBallX = eyeBallY = 0.0f;
-}
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        Screen.SetResolution(GUIwidth, GUIheight, false); // set resolution
-        StartCoroutine("displaySetting");
+        //Screen.SetResolution(GUIwidth, GUIheight, false);  // set resolution
+        //StartCoroutine("displaySetting");
 
         init();
     }
@@ -105,7 +105,6 @@ public class Momose : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // breath    
         t1 += (Time.deltaTime * 3f);
         float value = Mathf.Sin(t1) * 0.5f + 0.5f;
@@ -123,7 +122,7 @@ public class Momose : MonoBehaviour
         // right hand
         float value3 = Mathf.Sin(t2) * 1.0f;
         parameter = Model.Parameters[33];
-        parameter.Value = value2;
+        parameter.Value = value3;
 
         // update yaw
         parameter = Model.Parameters[0];
@@ -138,17 +137,17 @@ public class Momose : MonoBehaviour
         parameter.Value = angleZ;
 
         // update eyes
-        parameter = Model.Parameters[4]; // left
+        parameter = Model.Parameters[4];  // left
         parameter.Value = eyeLeft;
 
-        parameter = Model.Parameters[6]; // right
+        parameter = Model.Parameters[6];  // right
         parameter.Value = eyeRight;
 
         // update eyeballs
-        parameter = Model.Parameters[8]; // X axis
+        parameter = Model.Parameters[8];  // X axis
         parameter.Value = eyeBallX;
 
-        parameter = Model.Parameters[9]; // Y axis
+        parameter = Model.Parameters[9];  // Y axis
         parameter.Value = eyeBallY;
 
         // update mouth
@@ -169,7 +168,9 @@ public class Momose : MonoBehaviour
     void paraUpdate() {
 
         string buff = "";
-        string[] para; // parameters
+        string[] para;  // parameters
+        int cnt1 = 0, cnt2 = 0;  // counters to estimate time
+
         SocketConnect();
 
         while (true)
@@ -184,39 +185,44 @@ public class Momose : MonoBehaviour
                 continue;
             }
 
-            buff = Encoding.ASCII.GetString(recData, 0, len); // store data in buffer as string type
-            para = buff.Split(' '); // get 9 parameters
+            buff = Encoding.ASCII.GetString(recData, 0, len);  // store data in buffer as string type
+            para = buff.Split(' '); // get 11 parameters
 
-            angleZ = Convert.ToSingle(para[0]); // roll
-            angleY = Convert.ToSingle(para[1]); // pitch
-            angleX = Convert.ToSingle(para[2]); // yaw
+            angleZ = Convert.ToSingle(para[0]);  // roll
+            angleY = Convert.ToSingle(para[1]);  // pitch
+            angleX = Convert.ToSingle(para[2]);  // yaw
 
             // eyes open
-            float open = Convert.ToSingle(para[3]);
-            if (open < 0.17f) { eyeLeft = eyeRight = 0.0f; }
-            else if (open >= 0.17f && open <= 0.22f) { eyeLeft = eyeRight = 0.6f; }
-            else if(open > 0.22f && open <= 0.35f) { eyeLeft = eyeRight = 1.0f; } 
-            else if(open > 0.35f) { eyeLeft = eyeRight = 1.2f; }
+            eyeLeft = Convert.ToSingle(para[3]);
+            eyeRight = Convert.ToSingle(para[4]);
 
-            // eyes blink
-            float var = Convert.ToSingle(para[4]);
+            // one eye open, one eye close
+            float diff = Convert.ToSingle(para[5]);
+            float thres = Convert.ToSingle(para[6]);
+
+            if (diff < -thres) { if (cnt1 < 20) cnt1++; } else { if (cnt1 > 0) cnt1--; }
+            if (diff > thres) { if (cnt2 < 20) cnt2++; } else { if (cnt2 > 0) cnt2--; }
+
+            // if time is enough, assume the pose is kept
+            if (cnt1 >= 10) { eyeLeft = 0.0f; eyeRight = 1.0f; }  // left close, right open
+            if (cnt2 >= 10) { eyeLeft = 1.0f; eyeRight = 0.0f; }  // left open, right close
 
             // eye balls
-            eyeBallX = Convert.ToSingle(para[5]);
-            eyeBallY = Convert.ToSingle(para[6]);
+            eyeBallX = Convert.ToSingle(para[7]);
+            eyeBallY = Convert.ToSingle(para[8]);
 
             // mouth
-            mouthWidth = Convert.ToSingle(para[7]);
-            mouthVar = Convert.ToSingle(para[8]);
-
+            mouthWidth = Convert.ToSingle(para[9]);
+            mouthVar = Convert.ToSingle(para[10]);
         }
     }
 
+    /*
     IEnumerator displaySetting()
     {
         yield return new WaitForSeconds(0.1f); // wait for 0.1 second
         SetWindowLong(GetForegroundWindow(), STYLE, BORDER); // pop up window
         bool result = SetWindowPos(GetForegroundWindow(), TOP, GUIposX, GUIposY, GUIwidth, GUIheight, SHOWWINDOW); // set position and display at top
     }
-
+    */
 }

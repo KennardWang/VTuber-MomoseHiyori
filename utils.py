@@ -134,3 +134,36 @@ def draw_FPS(frame, FPS):
     """Draw FPS"""
     cv2.putText(frame, "FPS: %d" % FPS, (40, 40),
                 cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 1)
+
+
+def calibrate_cpu(meyeVar, eyeballX, eyeballY, mouthWidth):
+    """Calibrate some variables in CPU env"""
+
+    # Calibrate mean eye variance
+    if meyeVar <= 0.11:
+        eyeLeft = eyeRight = 0.0
+    elif meyeVar > 0.11 and meyeVar <= 0.13:
+        eyeLeft = eyeRight = 50.0 * meyeVar - 5.5
+    elif meyeVar > 0.13 and meyeVar <= 0.17:
+        eyeLeft = eyeRight = 1.0
+    elif meyeVar > 0.17 and meyeVar <= 0.22:
+        eyeLeft = eyeRight = 4.0 * meyeVar + 0.32
+    else:
+        eyeLeft = eyeRight = 1.2
+
+    # Calibrate eye diff threshold
+    diffthres = 0.04
+
+    # Calibrate eyeballs
+    cali_eyeballX = (eyeballX - 0.45) * (-4.0)
+    cali_eyeballY = (eyeballY - 0.38) * 2.0
+
+    # Calibrate mouth width
+    if mouthWidth <= 0.27:
+        cali_mouthWidth = -0.5
+    elif mouthWidth > 0.27 and mouthWidth <= 0.35:
+        cali_mouthWidth = 18.75 * mouthWidth - 5.5625
+    else:
+        cali_mouthWidth = 1.0
+
+    return eyeLeft, eyeRight, diffthres, cali_eyeballX, cali_eyeballY, cali_mouthWidth

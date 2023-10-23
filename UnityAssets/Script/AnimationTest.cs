@@ -12,7 +12,7 @@ public class AnimationTest : MonoBehaviour
 {
     private CubismModel Momose;
     private CubismParameter parameter;
-    private float _t; // time controller
+    private float _t;  // time controller
 
     void Start()
     {
@@ -23,12 +23,10 @@ public class AnimationTest : MonoBehaviour
     void Update()
     {
         _t += (Time.deltaTime * 4f); 
-        float value = Mathf.Sin(_t) * 30f; // amplitude
-        parameter = Momose.Parameters[2]; // head angle Z
+        float value = Mathf.Sin(_t) * 30f;  // amplitude
+        parameter = Momose.Parameters[2];  // head angle Z
         
-        parameter.Value = value; // set value
+        parameter.Value = value;  // set value
         Debug.Log(parameter.Value);
-
     }
-
 }

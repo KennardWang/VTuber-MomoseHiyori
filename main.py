@@ -68,11 +68,9 @@ def run():
         t = time.time()
 
         # Loop
-        # 1. Face detection
-        # 2. Draw face and iris landmarks
-        # 3. Pose estimation and stabilization (face + iris)
-        # 4. Calculate and calibrate message data if low error
-        # 5. Data transmission with socket
+        # 1. Face detection, draw face and iris landmarks
+        # 2. Pose estimation and stabilization (face + iris), calculate and calibrate data if low error
+        # 3. Data transmission with socket
 
         # Face detection on every odd frame
         if frame_count % 2 == 1:
@@ -145,30 +143,35 @@ def run():
                     steady_pose.append(ps_stb.state[0])
 
                 if args.connect:
-                    # Calibrate: pitch(15 is camera angle), eyeballX, eyeballY, mouthWidth
+                    # Calibrate: pitch(15 is camera angle)
                     # Head
                     roll = np.clip(
                         -(180 + np.degrees(steady_pose[2])), -50, 50)
                     pitch = np.clip(
-                        -(np.degrees(steady_pose[1]) + 15), -40, 40)
+                        -(np.degrees(steady_pose[1])), -50, 50)
                     yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
 
                     # Eyes
-                    eye_left = utils.eye_aspect_ratio(marks[36:42])
-                    eye_right = utils.eye_aspect_ratio(marks[42:48])
-                    eye_open = (eye_left + eye_right) / 2
-                    eye_diff = abs(eye_left - eye_right)
-                    eyeballX = (steady_pose[6] - 0.45) * (-4)
-                    eyeballY = (steady_pose[7] - 0.38) * 2
+                    LeyeVar = utils.eye_aspect_ratio(marks[36:42])
+                    ReyeVar = utils.eye_aspect_ratio(marks[42:48])
+                    meyeVar = (LeyeVar + ReyeVar) / 2
+                    eyediff = LeyeVar - ReyeVar
+                    eyeballX = steady_pose[6]
+                    eyeballY = steady_pose[7]
 
                     # Mouth
                     mouthWidth = utils.mouth_distance(
-                        marks[60:68]) / (facebox[2] - facebox[0]) + 0.4
+                        marks[60:68]) / (facebox[2] - facebox[0])
                     mouthVar = utils.mouth_aspect_ration(marks[60:68])
 
+                    # Calibrate
+                    if not args.gpu:
+                        eyeLeft, eyeRight, diffthres, cali_eyeballX, cali_eyeballY, cali_mouthWidth = utils.calibrate_cpu(
+                            meyeVar, eyeballX, eyeballY, mouthWidth)
+
                     # Update
-                    sock.update_all(roll, pitch, yaw, eye_open, eye_diff,
-                                    eyeballX, eyeballY, mouthWidth, mouthVar)
+                    sock.update_all(roll, pitch, yaw, eyeLeft, eyeRight, eyediff, diffthres,
+                                    cali_eyeballX, cali_eyeballY, cali_mouthWidth, mouthVar)
 
             # In debug mode, show the marks
             if args.debug:

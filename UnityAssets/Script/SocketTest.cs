@@ -32,7 +32,6 @@ public class SocketTest : MonoBehaviour
         // start a new thread to update parameters
         Thread connect = new Thread(new ThreadStart(DataReception));
         connect.Start();
-
     }
 
     // Start is called before the first frame update
@@ -57,7 +56,6 @@ public class SocketTest : MonoBehaviour
 
     void DataReception()
     {
-
         SocketConnect();
 
         while (true)
@@ -73,7 +71,7 @@ public class SocketTest : MonoBehaviour
 
             // change data type to string, then to float
             string str = Encoding.ASCII.GetString(recData, 0, len);
-            string[] para = str.Split(' '); // parameters group
+            string[] para = str.Split(' ');  // parameters group
 
             float v = Convert.ToSingle(para[5]);  
             Debug.Log(v);
