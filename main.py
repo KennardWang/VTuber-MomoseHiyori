@@ -37,10 +37,10 @@ def run():
         import face_alignment
         if os == 'Linux':  # Linux
             fa = face_alignment.FaceAlignment(
-                face_alignment.LandmarksType._2D, device='cuda', flip_input=False)
+                face_alignment.LandmarksType._2D, device='cuda')
         if os == 'Darwin':  # MacOS
             fa = face_alignment.FaceAlignment(
-                face_alignment.LandmarksType._2D, device='mps', flip_input=False)
+                face_alignment.LandmarksType._2D, device='mps')
 
         face_detector = fa.face_detector
 
@@ -54,7 +54,7 @@ def run():
         cov_process=0.01,
         cov_measure=0.1) for _ in range(8)]
 
-    # Establish a TCP connection to unity.
+    # Establish a TCP connection to unity
     if args.connect:
         address = ('127.0.0.1', args.port)
         sock = Socket()
@@ -164,10 +164,10 @@ def run():
                     yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
 
                     # Eyes
-                    LeyeVar = utils.eye_aspect_ratio(marks[36:42])
-                    ReyeVar = utils.eye_aspect_ratio(marks[42:48])
-                    meyeVar = (LeyeVar + ReyeVar) / 2
-                    eyediff = LeyeVar - ReyeVar
+                    eyeVarLeft = utils.eye_aspect_ratio(marks[36:42])
+                    eyeVarRight = utils.eye_aspect_ratio(marks[42:48])
+                    eyeVarMean = (eyeVarLeft + eyeVarRight) / 2
+                    eyeDiff = eyeVarLeft - eyeVarRight
                     eyeballX = steady_pose[6]
                     eyeballY = steady_pose[7]
 
@@ -178,11 +178,11 @@ def run():
 
                     # Calibrate
                     if not args.gpu:
-                        eyeLeft, eyeRight, diffthres, cali_eyeballX, cali_eyeballY, cali_mouthWidth = utils.calibrate_cpu(
-                            meyeVar, eyeballX, eyeballY, mouthWidth)
+                        eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, cali_mouthWidth = utils.calibrate_cpu(
+                            eyeVarMean, eyeballX, eyeballY, mouthWidth)
 
                     # Update
-                    sock.update_all(roll, pitch, yaw, eyeLeft, eyeRight, eyediff, diffthres,
+                    sock.update_all(roll, pitch, yaw, eyeLeft, eyeRight, eyeDiff, diffThres,
                                     cali_eyeballX, cali_eyeballY, cali_mouthWidth, mouthVar)
 
             # In debug mode, show the marks

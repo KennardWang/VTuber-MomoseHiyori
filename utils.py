@@ -148,7 +148,7 @@ def calibrate_cpu(meyeVar, eyeballX, eyeballY, mouthWidth):
         eyeLeft = eyeRight = 1.2
 
     # Calibrate eye diff threshold
-    diffthres = 0.04
+    diffThres = 0.04
 
     # Calibrate eyeballs
     cali_eyeballX = (eyeballX - 0.45) * (-4.0)
@@ -162,4 +162,4 @@ def calibrate_cpu(meyeVar, eyeballX, eyeballY, mouthWidth):
     else:
         cali_mouthWidth = 1.0
 
-    return eyeLeft, eyeRight, diffthres, cali_eyeballX, cali_eyeballY, cali_mouthWidth
+    return eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, cali_mouthWidth

@@ -10,8 +10,8 @@ class Socket:
         self.yaw = 0.0
         self.eyeLeft = 0.0
         self.eyeRight = 0.0
-        self.eyediff = 0.0
-        self.diffthres = 0.0  # diff threshold
+        self.eyeDiff = 0.0
+        self.diffThres = 0.0  # diff threshold
         self.eyeballX = 0.0
         self.eyeballY = 0.0
         self.mouthWidth = 0.0
@@ -19,15 +19,15 @@ class Socket:
 
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    def update_all(self, roll, pitch, yaw, eyeLeft, eyeRight, eyediff, diffthres, eyeballX, eyeballY, mouthWidth, mouthVar):
+    def update_all(self, roll, pitch, yaw, eyeLeft, eyeRight, eyeDiff, diffThres, eyeballX, eyeballY, mouthWidth, mouthVar):
         """Update all variables"""
         self.roll = roll
         self.pitch = pitch
         self.yaw = yaw
         self.eyeLeft = eyeLeft
         self.eyeRight = eyeRight
-        self.eyediff = eyediff
-        self.diffthres = diffthres
+        self.eyeDiff = eyeDiff
+        self.diffThres = diffThres
         self.eyeballX = eyeballX
         self.eyeballY = eyeballY
         self.mouthWidth = mouthWidth
@@ -36,7 +36,7 @@ class Socket:
     def conv2msg(self):
         """Convert all variables to message data"""
         self.msg = '%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f' % \
-            (self.roll, self.pitch, self.yaw, self.eyeLeft, self.eyeRight, self.eyediff, self.diffthres,
+            (self.roll, self.pitch, self.yaw, self.eyeLeft, self.eyeRight, self.eyeDiff, self.diffThres,
              self.eyeballX, self.eyeballY, self.mouthWidth, self.mouthVar)
 
     def connect(self, addr):
