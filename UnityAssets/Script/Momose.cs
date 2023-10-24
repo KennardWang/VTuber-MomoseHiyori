@@ -25,40 +25,36 @@ using System.Runtime.InteropServices;
 public class Momose : MonoBehaviour
 {
     // Window setting, reference: https://blog.csdn.net/qq_39097425/article/details/81664448
-    [DllImport("user32.dll")]
-    static extern IntPtr SetWindowLong(IntPtr hwnd, int _nIndex, int dwNewLong);
-    [DllImport("user32.dll")]
-    static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-    [DllImport("user32.dll")]
-    static extern IntPtr GetForegroundWindow();
+    //[DllImport("user32.dll")]
+    //static extern IntPtr SetWindowLong(IntPtr hwnd, int _nIndex, int dwNewLong);
+    //[DllImport("user32.dll")]
+    //static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+    //[DllImport("user32.dll")]
+    //static extern IntPtr GetForegroundWindow();
 
 
     // Player setting
-    const uint SHOWWINDOW = 0x0040;
-    const int STYLE = -16;
-    const int BORDER = 1;
-    const int TOP = -1;
+    //const uint SHOWWINDOW = 0x0040;
+    //const int STYLE = -16;
+    //const int BORDER = 1;
+    //const int TOP = -1;
 
-    int GUIwidth = 480;
-    int GUIheight = 360;
-    int GUIposX = 1450;
-    int GUIposY = 650;
+    //int GUIwidth = 480;
+    //int GUIheight = 360;
+    //int GUIposX = 1450;
+    //int GUIposY = 650;
 
 
     // Socket connect, reference: https://blog.csdn.net/u012234115/article/details/46481845
     Socket clientSocket;
     Socket serverSocket;
-    const string IP = "127.0.0.1";
-    const int PORT = 14514;
-
 
     // Receive Data
     byte[] recData = new byte[1024];
 
-
     // Model parameter, reference: https://docs.live2d.com/cubism-sdk-tutorials/about-parameterupdating-of-model/?locale=ja
     private CubismModel Model;
-    private CubismParameter parameter;
+    private CubismParameter parameter;  // do not use array, otherwise it won't update
     private float t1;  // time controller for breath
     private float t2;  // time controller for hands
     private float angleX;  // head angle
@@ -66,14 +62,20 @@ public class Momose : MonoBehaviour
     private float angleZ;  // head angle
     private float eyeLeft;
     private float eyeRight;
-    private float mouthVar;
-    private float mouthWidth;
     private float eyeBallX;
     private float eyeBallY;
-
+    private float eyebrowLeft;
+    private float eyebrowRight;
+    private float mouthVar;
+    private float mouthWidth;
 
     void init()
     {
+        // Initialize IP and port
+        const string IP = "127.0.0.1";
+        int PORT = PlayerPrefs.GetInt("port");
+        Debug.Log(PORT);
+
         // Socket initialization
         serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(IP), PORT);
@@ -88,9 +90,10 @@ public class Momose : MonoBehaviour
         Model = this.FindCubismModel();
         t1 = t2 = 0.0f;
         eyeLeft = eyeRight = 1.0f;
+        eyeBallX = eyeBallY = 0.0f;
         mouthWidth = 1.0f;
         mouthVar = 0.0f;
-        eyeBallX = eyeBallY = 0.0f;
+        eyebrowLeft = eyebrowRight = -1.0f;
     }
 
     // Start is called before the first frame update
@@ -102,10 +105,10 @@ public class Momose : MonoBehaviour
         init();
     }
 
-    // Update is called once per frame
-    void Update()
+    // Update is called once per frame, please use LateUpdate() instead of Update(), otherwise it will stuck
+    void LateUpdate()
     {
-        // breath    
+        // breath
         t1 += (Time.deltaTime * 3f);
         float value = Mathf.Sin(t1) * 0.5f + 0.5f;
         parameter = Model.Parameters[23];
@@ -127,7 +130,7 @@ public class Momose : MonoBehaviour
         // update yaw
         parameter = Model.Parameters[0];
         parameter.Value = angleX;
-        
+
         // update pitch
         parameter = Model.Parameters[1];
         parameter.Value = angleY;
@@ -150,26 +153,33 @@ public class Momose : MonoBehaviour
         parameter = Model.Parameters[9];  // Y axis
         parameter.Value = eyeBallY;
 
+        // update eyebrows
+        parameter = Model.Parameters[10];  // left
+        parameter.Value = eyebrowLeft;
+
+        parameter = Model.Parameters[11];  // right
+        parameter.Value = eyebrowRight;
+
         // update mouth
-        parameter = Model.Parameters[18]; 
+        parameter = Model.Parameters[18];
         parameter.Value = mouthWidth;
 
-        parameter = Model.Parameters[19]; 
+        parameter = Model.Parameters[19];
         parameter.Value = mouthVar;
     }
 
     void SocketConnect()
     {
         if (clientSocket != null) { clientSocket.Close(); }
-           
-        clientSocket = serverSocket.Accept();       
+
+        clientSocket = serverSocket.Accept();
     }
 
-    void paraUpdate() {
-
+    void paraUpdate()
+    {
         string buff = "";
         string[] para;  // parameters
-        int cnt1 = 0, cnt2 = 0;  // counters to estimate time
+        int cnt1 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0;  // counters to estimate time
 
         SocketConnect();
 
@@ -211,9 +221,21 @@ public class Momose : MonoBehaviour
             eyeBallX = Convert.ToSingle(para[7]);
             eyeBallY = Convert.ToSingle(para[8]);
 
+            // eyebrows
+            float barLeft = Convert.ToSingle(para[9]);
+            float barRight = Convert.ToSingle(para[10]);
+            float thres2 = Convert.ToSingle(para[11]);
+
+            if (barLeft > thres2) { if (cnt3 < 10) cnt3++; } else { if (cnt3 > 0) cnt3--; }
+            if (barRight > thres2) { if (cnt4 < 10) cnt4++; } else { if (cnt4 > 0) cnt4--; }
+
+            // if time is enough, assume the pose is kept
+            if (cnt3 >= 5) { eyebrowLeft = 0.0f; } else { eyebrowLeft = -1.0f; }
+            if (cnt4 >= 5) { eyebrowRight = 0.0f; } else { eyebrowRight = -1.0f; }
+
             // mouth
-            mouthWidth = Convert.ToSingle(para[9]);
-            mouthVar = Convert.ToSingle(para[10]);
+            mouthWidth = Convert.ToSingle(para[12]);
+            mouthVar = Convert.ToSingle(para[13]);
         }
     }
 

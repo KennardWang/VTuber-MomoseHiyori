@@ -35,12 +35,13 @@ def run():
 
     else:  # GPU: use FAN (better)
         import face_alignment
-        if os == 'Linux':  # Linux
-            fa = face_alignment.FaceAlignment(
-                face_alignment.LandmarksType._2D, device='cuda')
+
         if os == 'Darwin':  # MacOS
             fa = face_alignment.FaceAlignment(
                 face_alignment.LandmarksType._2D, device='mps')
+        else:  # Windows, Linux
+            fa = face_alignment.FaceAlignment(
+                face_alignment.LandmarksType._2D, device='cuda')
 
         face_detector = fa.face_detector
 
@@ -171,19 +172,26 @@ def run():
                     eyeballX = steady_pose[6]
                     eyeballY = steady_pose[7]
 
+                    # Eyebrows
+                    eyebrowLeft = utils.brow_aspect_ratio(marks[17:22])
+                    eyebrowRight = utils.brow_aspect_ratio(marks[22:27])
+
                     # Mouth
                     mouthWidth = utils.mouth_distance(
                         marks[60:68]) / (facebox[2] - facebox[0])
-                    mouthVar = utils.mouth_aspect_ration(marks[60:68])
+                    mouthVar = utils.mouth_aspect_ratio(marks[60:68])
 
                     # Calibrate
                     if not args.gpu:
-                        eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, cali_mouthWidth = utils.calibrate_cpu(
+                        eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, browThres, cali_mouthWidth = utils.calibrate_cpu(
+                            eyeVarMean, eyeballX, eyeballY, mouthWidth)
+                    else:
+                        eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, browThres, cali_mouthWidth = utils.calibrate_gpu(
                             eyeVarMean, eyeballX, eyeballY, mouthWidth)
 
                     # Update
                     sock.update_all(roll, pitch, yaw, eyeLeft, eyeRight, eyeDiff, diffThres,
-                                    cali_eyeballX, cali_eyeballY, cali_mouthWidth, mouthVar)
+                                    cali_eyeballX, cali_eyeballY, eyebrowLeft, eyebrowRight, browThres, cali_mouthWidth, mouthVar)
 
             # In debug mode, show the marks
             if args.debug:
