@@ -45,8 +45,8 @@ def test_module_install_gpu():
         v1 = pkg_resources.get_distribution(modules[1]).version
         assert v1 is not None
 
-        # Test CUDA
-        if m1.cuda.is_available():
+        # Test M1 GPU
+        if m1.backends.mps.is_available() and m1.backends.mps.is_built():
             assert True
         else:
             print(m1.__version__)

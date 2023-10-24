@@ -60,6 +60,9 @@ class FaceAlignment:
 
         if 'cuda' in device:
             torch.backends.cudnn.benchmark = True
+        
+        if 'mps' in device:
+            torch.backends.mps.benchmark = True   
 
         # Get the face detector
         face_detector_module = __import__('face_alignment.detection.' + face_detector,

@@ -25,9 +25,9 @@ class FaceDetector(object):
                 logger = logging.getLogger(__name__)
                 logger.warning("Detection running on CPU, this may be potentially slow.")
 
-        if 'cpu' not in device and 'cuda' not in device:
+        if 'cpu' not in device and 'cuda' not in device and 'mps' not in device:
             if verbose:
-                logger.error("Expected values for device are: {cpu, cuda} but got: %s", device)
+                logger.error("Expected values for device are: {cpu, cuda, mps} but got: %s", device)
             raise ValueError
 
     def detect_from_image(self, tensor_or_path):
@@ -123,7 +123,7 @@ class FaceDetector(object):
         if isinstance(tensor_or_path, str):
             return cv2.imread(tensor_or_path) if not rgb else io.imread(tensor_or_path)
         elif torch.is_tensor(tensor_or_path):
-            # Call cpu in case its coming from cuda
+            # Call cpu in case its coming from cuda or mps
             return tensor_or_path.cpu().numpy()[..., ::-1].copy() if not rgb else tensor_or_path.cpu().numpy()
         elif isinstance(tensor_or_path, np.ndarray):
             return tensor_or_path[..., ::-1].copy() if not rgb else tensor_or_path

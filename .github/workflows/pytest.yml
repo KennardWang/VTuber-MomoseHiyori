@@ -22,7 +22,7 @@ jobs:
         with:
           activate-environment: l2d-vtb
           environment-file: environment.yml
-          python-version: "3.7"
+          python-version: "3.8"
       - run: |
           conda env list
           conda activate l2d-vtb
@@ -51,7 +51,7 @@ jobs:
         with:
           activate-environment: l2d-vtb
           environment-file: environment.yml
-          python-version: "3.7"
+          python-version: "3.8"
       - run: |
           conda env list
           conda activate l2d-vtb
@@ -61,7 +61,7 @@ jobs:
           pip install -r requirements.txt
           conda install -c conda-forge dlib
           pip install scipy>0.16
-          conda install pytorch==1.10.2 torchvision==0.11.3 torchaudio==0.10.2 -c pytorch
+          conda install pytorch torchvision torchaudio -c pytorch-nightly
     
       - name: Run tests
         run: |
@@ -80,7 +80,7 @@ jobs:
         with:
           activate-environment: l2d-vtb
           environment-file: environment.yml
-          python-version: "3.7"
+          python-version: "3.8"
       - run: |
           conda env list
           conda activate l2d-vtb

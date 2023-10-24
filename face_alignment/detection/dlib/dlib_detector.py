@@ -18,7 +18,7 @@ class DlibDetector(FaceDetector):
         base_path = os.path.join(appdata_dir('face_alignment'), "data")
 
         # Initialise the face detector
-        if 'cuda' in device:
+        if 'cuda' in device or 'mps' in device:
             if path_to_detector is None:
                 path_to_detector = os.path.join(
                     base_path, "mmod_human_face_detector.dat")
@@ -47,7 +47,7 @@ class DlibDetector(FaceDetector):
 
         detected_faces = self.face_detector(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY))
 
-        if 'cuda' not in self.device:
+        if 'cuda' not in self.device and 'mps' not in self.device:
             detected_faces = [[d.left(), d.top(), d.right(), d.bottom()] for d in detected_faces]
         else:
             detected_faces = [[d.rect.left(), d.rect.top(), d.rect.right(), d.rect.bottom()] for d in detected_faces]

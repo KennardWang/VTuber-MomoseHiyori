@@ -12,6 +12,9 @@ def detect(net, img, device):
 
     if 'cuda' in device:
         torch.backends.cudnn.benchmark = True
+    
+    if 'mps' in device:
+        torch.backends.mps.benchmark = True
 
     img = torch.FloatTensor(img).to(device)
     BB, CC, HH, WW = img.size()

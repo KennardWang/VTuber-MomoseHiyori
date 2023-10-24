@@ -3,13 +3,9 @@ from platform import system
 import cv2
 
 
-def def_cap(cam):
-    """Define capture"""
-    if system() in ['Windows']:  # Windows OS
-        cap = cv2.VideoCapture(cam + cv2.CAP_DSHOW)
-    else:  # Linux & Mac OS
-        cap = cv2.VideoCapture(cam)
-    return cap
+def get_os():
+    """Get operating system"""
+    return system()
 
 
 def get_face(detector, image, gpu=False):

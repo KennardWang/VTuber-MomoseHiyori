@@ -2,8 +2,6 @@ import os
 import cv2
 import numpy as np
 import time
-import dlib
-import face_alignment
 import utils
 
 from argparse import ArgumentParser
@@ -16,20 +14,34 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 
 def run():
-    # Define operating system
-    cap = utils.def_cap(args.cam)
+    # Get operating system
+    os = utils.get_os()
+
+    if os == 'Windows':  # Windows OS
+        cap = cv2.VideoCapture(args.cam + cv2.CAP_DSHOW)
+    else:  # Linux & Mac OS
+        cap = cv2.VideoCapture(args.cam)
+
     cap.set(cv2.CAP_PROP_FPS, 30)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     _, sample_frame = cap.read()
 
     # Setup face detection models
     if not args.gpu:  # CPU: use dlib
+        import dlib
         dlib_model_path = 'face_pose/shape_predictor_68_face_landmarks.dat'
         shape_predictor = dlib.shape_predictor(dlib_model_path)
         face_detector = dlib.get_frontal_face_detector()
+
     else:  # GPU: use FAN (better)
-        fa = face_alignment.FaceAlignment(
-            face_alignment.LandmarksType._2D, flip_input=False)
+        import face_alignment
+        if os == 'Linux':  # Linux
+            fa = face_alignment.FaceAlignment(
+                face_alignment.LandmarksType._2D, device='cuda', flip_input=False)
+        if os == 'Darwin':  # MacOS
+            fa = face_alignment.FaceAlignment(
+                face_alignment.LandmarksType._2D, device='mps', flip_input=False)
+
         face_detector = fa.face_detector
 
     # Introduce pose estimator to solve pose, get one frame to setup the estimator according to the image size
