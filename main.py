@@ -165,33 +165,48 @@ def run():
                     yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
 
                     # Eyes
-                    eyeVarLeft = utils.eye_aspect_ratio(marks[36:42])
-                    eyeVarRight = utils.eye_aspect_ratio(marks[42:48])
-                    eyeVarMean = (eyeVarLeft + eyeVarRight) / 2
-                    eyeDiff = eyeVarLeft - eyeVarRight
+                    earLeft = utils.eye_aspect_ratio(marks[36:42])
+                    earRight = utils.eye_aspect_ratio(marks[42:48])
                     eyeballX = steady_pose[6]
                     eyeballY = steady_pose[7]
 
                     # Eyebrows
-                    eyebrowLeft = utils.brow_aspect_ratio(marks[17:22])
-                    eyebrowRight = utils.brow_aspect_ratio(marks[22:27])
+                    barLeft = utils.brow_aspect_ratio(marks[17:22])
+                    barRight = utils.brow_aspect_ratio(marks[22:27])
 
                     # Mouth
-                    mouthWidth = utils.mouth_distance(
+                    mouthWidthRatio = utils.mouth_distance(
                         marks[60:68]) / (facebox[2] - facebox[0])
-                    mouthVar = utils.mouth_aspect_ratio(marks[60:68])
+                    mouthOpen = utils.mouth_aspect_ratio(marks[60:68])
 
-                    # Calibrate
-                    if not args.gpu:
-                        eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, browThres, cali_mouthWidth = utils.calibrate_cpu(
-                            eyeVarMean, eyeballX, eyeballY, mouthWidth)
-                    else:
-                        eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, browThres, cali_mouthWidth = utils.calibrate_gpu(
-                            eyeVarMean, eyeballX, eyeballY, mouthWidth)
+                    # Calibration before data transmission
+                    # eye openness
+                    eyeOpenLeft = utils.calibrate_eyeOpen(
+                        earLeft, sock.eyeOpenLeftLast, args.gpu)
+                    eyeOpenRight = utils.calibrate_eyeOpen(
+                        earRight, sock.eyeOpenRightLast, args.gpu)
+
+                    # eyeballs
+                    eyeballX, eyeballY = utils.calibrate_eyeball(
+                        eyeballX, eyeballY)
+
+                    # eyebrows
+                    eyebrowLeft = utils.calibrate_eyebrow(
+                        barLeft, sock.eyebrowLeftLast, args.gpu)
+                    eyebrowRight = utils.calibrate_eyebrow(
+                        barRight, sock.eyebrowRightLast, args.gpu)
+
+                    # mouth width
+                    mouthWidth = utils.calibrate_mouthWidth(
+                        mouthWidthRatio, args.gpu)
+
+                    print(barLeft)
 
                     # Update
-                    sock.update_all(roll, pitch, yaw, eyeLeft, eyeRight, eyeDiff, diffThres,
-                                    cali_eyeballX, cali_eyeballY, eyebrowLeft, eyebrowRight, browThres, cali_mouthWidth, mouthVar)
+                    sock.update_all(roll, pitch, yaw, eyeOpenLeft, eyeOpenRight, eyeballX,
+                                    eyeballY, eyebrowLeft, eyebrowRight, mouthWidth, mouthOpen)
+
+                    sock.cnt = 0
 
             # In debug mode, show the marks
             if args.debug:

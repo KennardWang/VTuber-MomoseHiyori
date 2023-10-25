@@ -60,13 +60,13 @@ public class Momose : MonoBehaviour
     private float angleX;  // head angle
     private float angleY;  // head angle
     private float angleZ;  // head angle
-    private float eyeLeft;
-    private float eyeRight;
+    private float eyeOpenLeft;
+    private float eyeOpenRight;
     private float eyeBallX;
     private float eyeBallY;
     private float eyebrowLeft;
     private float eyebrowRight;
-    private float mouthVar;
+    private float mouthOpen;
     private float mouthWidth;
 
     void init()
@@ -89,10 +89,10 @@ public class Momose : MonoBehaviour
         // Model initialization
         Model = this.FindCubismModel();
         t1 = t2 = 0.0f;
-        eyeLeft = eyeRight = 1.0f;
+        eyeOpenLeft = eyeOpenRight = 1.0f;
         eyeBallX = eyeBallY = 0.0f;
         mouthWidth = 1.0f;
-        mouthVar = 0.0f;
+        mouthOpen = 0.0f;
         eyebrowLeft = eyebrowRight = -1.0f;
     }
 
@@ -110,22 +110,19 @@ public class Momose : MonoBehaviour
     {
         // breath
         t1 += (Time.deltaTime * 3f);
-        float value = Mathf.Sin(t1) * 0.5f + 0.5f;
         parameter = Model.Parameters[23];
-        parameter.Value = value;
+        parameter.Value = Mathf.Sin(t1) * 0.5f + 0.5f;
 
         // hands
         t2 += (Time.deltaTime * 2f);
 
         // left hand
-        float value2 = Mathf.Sin(t2) * 1.0f;
         parameter = Model.Parameters[32];
-        parameter.Value = value2;
+        parameter.Value = Mathf.Sin(t2) * 1.0f;
 
         // right hand
-        float value3 = Mathf.Sin(t2) * 1.0f;
         parameter = Model.Parameters[33];
-        parameter.Value = value3;
+        parameter.Value = Mathf.Sin(t2) * 1.0f;
 
         // update yaw
         parameter = Model.Parameters[0];
@@ -141,10 +138,10 @@ public class Momose : MonoBehaviour
 
         // update eyes
         parameter = Model.Parameters[4];  // left
-        parameter.Value = eyeLeft;
+        parameter.Value = eyeOpenLeft;
 
         parameter = Model.Parameters[6];  // right
-        parameter.Value = eyeRight;
+        parameter.Value = eyeOpenRight;
 
         // update eyeballs
         parameter = Model.Parameters[8];  // X axis
@@ -165,7 +162,7 @@ public class Momose : MonoBehaviour
         parameter.Value = mouthWidth;
 
         parameter = Model.Parameters[19];
-        parameter.Value = mouthVar;
+        parameter.Value = mouthOpen;
     }
 
     void SocketConnect()
@@ -179,7 +176,6 @@ public class Momose : MonoBehaviour
     {
         string buff = "";
         string[] para;  // parameters
-        int cnt1 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0;  // counters to estimate time
 
         SocketConnect();
 
@@ -202,40 +198,21 @@ public class Momose : MonoBehaviour
             angleY = Convert.ToSingle(para[1]);  // pitch
             angleX = Convert.ToSingle(para[2]);  // yaw
 
-            // eyes open
-            eyeLeft = Convert.ToSingle(para[3]);
-            eyeRight = Convert.ToSingle(para[4]);
-
-            // one eye open, one eye close
-            float diff = Convert.ToSingle(para[5]);
-            float thres = Convert.ToSingle(para[6]);
-
-            if (diff < -thres) { if (cnt1 < 20) cnt1++; } else { if (cnt1 > 0) cnt1--; }
-            if (diff > thres) { if (cnt2 < 20) cnt2++; } else { if (cnt2 > 0) cnt2--; }
-
-            // if time is enough, assume the pose is kept
-            if (cnt1 >= 10) { eyeLeft = 0.0f; eyeRight = 1.0f; }  // left close, right open
-            if (cnt2 >= 10) { eyeLeft = 1.0f; eyeRight = 0.0f; }  // left open, right close
+            // eye openness
+            eyeOpenLeft = Convert.ToSingle(para[3]);
+            eyeOpenRight = Convert.ToSingle(para[4]);
 
             // eye balls
-            eyeBallX = Convert.ToSingle(para[7]);
-            eyeBallY = Convert.ToSingle(para[8]);
+            eyeBallX = Convert.ToSingle(para[5]);
+            eyeBallY = Convert.ToSingle(para[6]);
 
             // eyebrows
-            float barLeft = Convert.ToSingle(para[9]);
-            float barRight = Convert.ToSingle(para[10]);
-            float thres2 = Convert.ToSingle(para[11]);
-
-            if (barLeft > thres2) { if (cnt3 < 10) cnt3++; } else { if (cnt3 > 0) cnt3--; }
-            if (barRight > thres2) { if (cnt4 < 10) cnt4++; } else { if (cnt4 > 0) cnt4--; }
-
-            // if time is enough, assume the pose is kept
-            if (cnt3 >= 5) { eyebrowLeft = 0.0f; } else { eyebrowLeft = -1.0f; }
-            if (cnt4 >= 5) { eyebrowRight = 0.0f; } else { eyebrowRight = -1.0f; }
+            eyebrowLeft = Convert.ToSingle(para[7]);
+            eyebrowRight = Convert.ToSingle(para[8]);
 
             // mouth
-            mouthWidth = Convert.ToSingle(para[12]);
-            mouthVar = Convert.ToSingle(para[13]);
+            mouthWidth = Convert.ToSingle(para[9]);
+            mouthOpen = Convert.ToSingle(para[10]);
         }
     }
 

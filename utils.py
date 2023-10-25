@@ -140,73 +140,129 @@ def draw_FPS(frame, FPS):
                 cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 1)
 
 
-def calibrate_cpu(eyeVarMean, eyeballX, eyeballY, mouthWidth):
-    """Calibrate some variables in CPU env"""
+def calibrate_eyeOpen(ear, eyeOpenLast, gpu):
+    """Calibrate parameter eyeOpen"""
+    flag = False  # jump out current state
 
-    # Calibrate mean eye variance
-    if eyeVarMean <= 0.11:
-        eyeLeft = eyeRight = 0.0
-    elif eyeVarMean > 0.11 and eyeVarMean <= 0.13:
-        eyeLeft = eyeRight = 50.0 * eyeVarMean - 5.5
-    elif eyeVarMean > 0.13 and eyeVarMean <= 0.17:
-        eyeLeft = eyeRight = 1.0
-    elif eyeVarMean > 0.17 and eyeVarMean <= 0.22:
-        eyeLeft = eyeRight = 4.0 * eyeVarMean + 0.32
+    if not gpu:
+        # CPU env
+        if eyeOpenLast == 0.0:
+            if ear > 0.17:
+                flag = True
+        if eyeOpenLast == 0.5:
+            if abs(ear - 0.15) > 0.03:
+                flag = True
+        elif eyeOpenLast == 1.0:
+            if abs(ear - 0.19) > 0.035:
+                flag = True
+        else:
+            if ear < 0.22:
+                flag = True
+
+        if flag:
+            if ear <= 0.14:
+                eyeOpen = 0.0
+            elif ear > 0.14 and ear <= 0.16:
+                eyeOpen = 0.5
+            elif ear > 0.16 and ear <= 0.22:
+                eyeOpen = 1.0
+            else:
+                eyeOpen = 1.2
+        else:
+            eyeOpen = eyeOpenLast
+
     else:
-        eyeLeft = eyeRight = 1.2
+        # GPU env
+        if eyeOpenLast == 0.0:
+            if ear > 0.25:
+                flag = True
+        if eyeOpenLast == 0.5:
+            if abs(ear - 0.21) > 0.04:
+                flag = True
+        elif eyeOpenLast == 1.0:
+            if abs(ear - 0.24) > 0.07:
+                flag = True
+        else:
+            if ear < 0.17:
+                flag = True
 
-    # Calibrate eye diff threshold
-    diffThres = 0.04
+        if flag:
+            if ear <= 0.22:
+                eyeOpen = 0.0
+            elif ear > 0.22 and ear <= 0.23:
+                eyeOpen = 0.5
+            elif ear > 0.23 and ear <= 0.27:
+                eyeOpen = 1.0
+            else:
+                eyeOpen = 1.2
+        else:
+            eyeOpen = eyeOpenLast
 
-    # Calibrate eyeballs
-    cali_eyeballX = (eyeballX - 0.45) * (-4.0)
-    cali_eyeballY = (eyeballY - 0.38) * 2.0
+    return eyeOpen
 
-    # Calibrate eyebrows threshold
-    browThres = 0.19
 
-    # Calibrate mouth width
-    if mouthWidth <= 0.27:
-        cali_mouthWidth = -0.5
-    elif mouthWidth > 0.27 and mouthWidth <= 0.35:
-        cali_mouthWidth = 18.75 * mouthWidth - 5.5625
+def calibrate_eyeball(eyeballX, eyeballY):
+    """Calibrate parameters eyeballX, eyeballY"""
+    return (eyeballX - 0.45) * (-4.0), (eyeballY - 0.38) * 2.0
+
+
+def calibrate_eyebrow(bar, eyebroLast, gpu):
+    """Calibrate parameter eyebrow"""
+    flag = False  # jump out current state
+
+    if not gpu:
+        # CPU env
+        if eyebroLast == -1.0:
+            if bar > 0.22:
+                flag = True
+        else:
+            if bar < 0.2:
+                flag = True
+
+        if flag:
+            if bar <= 0.215:
+                eyebrow = -1.0
+            else:
+                eyebrow = 0.0
+        else:
+            eyebrow = eyebroLast
     else:
-        cali_mouthWidth = 1.0
+        # GPU env
+        if eyebroLast == -1.0:
+            if bar > 0.22:
+                flag = True
+        else:
+            if bar < 0.2:
+                flag = True
 
-    return eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, browThres, cali_mouthWidth
+        if flag:
+            if bar <= 0.225:
+                eyebrow = -1.0
+            else:
+                eyebrow = 0.0
+        else:
+            eyebrow = eyebroLast
+
+    return eyebrow
 
 
-def calibrate_gpu(eyeVarMean, eyeballX, eyeballY, mouthWidth):
-    """Calibrate some variables in GPU env"""
-
-    # Calibrate mean eye variance
-    if eyeVarMean <= 0.19:
-        eyeLeft = eyeRight = 0.0
-    elif eyeVarMean > 0.19 and eyeVarMean <= 0.21:
-        eyeLeft = eyeRight = 50.0 * eyeVarMean - 9.5
-    elif eyeVarMean > 0.21 and eyeVarMean <= 0.25:
-        eyeLeft = eyeRight = 1.0
-    elif eyeVarMean > 0.24 and eyeVarMean <= 0.28:
-        eyeLeft = eyeRight = 5.0 * eyeVarMean - 0.2
+def calibrate_mouthWidth(mouthWidthRatio, gpu):
+    """Calibrate parameter mouthWidth"""
+    if not gpu:
+        # CPU env
+        if mouthWidthRatio <= 0.27:
+            mouthWidth = -0.5
+        elif mouthWidthRatio > 0.27 and mouthWidthRatio <= 0.35:
+            mouthWidth = 18.75 * mouthWidthRatio - 5.5625
+        else:
+            mouthWidth = 1.0
     else:
-        eyeLeft = eyeRight = 1.2
+        # GPU env
+        if mouthWidthRatio <= 0.32:
+            mouthWidth = -0.5
+        elif mouthWidthRatio > 0.32 and mouthWidthRatio <= 0.37:
+            mouthWidth = 30.0 * mouthWidthRatio - 10.1
+        else:
+            mouthWidth = 1.0
 
-    # Calibrate eye diff threshold
-    diffThres = 0.045
-
-    # Calibrate eyeballs
-    cali_eyeballX = (eyeballX - 0.45) * (-4.0)
-    cali_eyeballY = (eyeballY - 0.38) * 2.0
-
-    # Calibrate eyebrows threshold
-    browThres = 0.2
-
-    # Calibrate mouth width
-    if mouthWidth <= 0.32:
-        cali_mouthWidth = -0.5
-    elif mouthWidth > 0.32 and mouthWidth <= 0.35:
-        cali_mouthWidth = 50.0 * mouthWidth - 16.5
-    else:
-        cali_mouthWidth = 1.0
-
-    return eyeLeft, eyeRight, diffThres, cali_eyeballX, cali_eyeballY, browThres, cali_mouthWidth
+    return mouthWidth
