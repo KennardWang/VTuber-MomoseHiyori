@@ -202,7 +202,7 @@ public class Momose : MonoBehaviour
             eyeOpenLeft = Convert.ToSingle(para[3]);
             eyeOpenRight = Convert.ToSingle(para[4]);
 
-            // eye balls
+            // eyeballs
             eyeBallX = Convert.ToSingle(para[5]);
             eyeBallY = Convert.ToSingle(para[6]);
 

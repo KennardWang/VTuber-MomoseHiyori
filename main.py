@@ -157,24 +157,24 @@ def run():
 
                 if args.connect:
                     # Calibrate: pitch(15 is camera angle)
-                    # Head
+                    # head
                     roll = np.clip(
                         -(180 + np.degrees(steady_pose[2])), -50, 50)
                     pitch = np.clip(
                         -(np.degrees(steady_pose[1])), -50, 50)
                     yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
 
-                    # Eyes
+                    # eyes
                     earLeft = utils.eye_aspect_ratio(marks[36:42])
                     earRight = utils.eye_aspect_ratio(marks[42:48])
                     eyeballX = steady_pose[6]
                     eyeballY = steady_pose[7]
 
-                    # Eyebrows
+                    # eyebrows
                     barLeft = utils.brow_aspect_ratio(marks[17:22])
                     barRight = utils.brow_aspect_ratio(marks[22:27])
 
-                    # Mouth
+                    # mouth
                     mouthWidthRatio = utils.mouth_distance(
                         marks[60:68]) / (facebox[2] - facebox[0])
                     mouthOpen = utils.mouth_aspect_ratio(marks[60:68])
@@ -200,13 +200,9 @@ def run():
                     mouthWidth = utils.calibrate_mouthWidth(
                         mouthWidthRatio, args.gpu)
 
-                    print(barLeft)
-
                     # Update
                     sock.update_all(roll, pitch, yaw, eyeOpenLeft, eyeOpenRight, eyeballX,
                                     eyeballY, eyebrowLeft, eyebrowRight, mouthWidth, mouthOpen)
-
-                    sock.cnt = 0
 
             # In debug mode, show the marks
             if args.debug:
