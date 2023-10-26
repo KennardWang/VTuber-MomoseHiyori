@@ -12,7 +12,7 @@ using System.Net.Sockets;
 
 public class SocketTest : MonoBehaviour
 {
-    // basic setting
+    // Basic setting
     Socket clientSocket;
     Socket serverSocket;
     const string IP = "127.0.0.1";
@@ -29,7 +29,7 @@ public class SocketTest : MonoBehaviour
         serverSocket.Bind(ipEndPoint);
         serverSocket.Listen(100);
 
-        // start a new thread to update parameters
+        // Start a new thread to update parameters
         Thread connect = new Thread(new ThreadStart(DataReception));
         connect.Start();
     }
@@ -69,7 +69,7 @@ public class SocketTest : MonoBehaviour
                 continue;
             }
 
-            // change data type to string, then to float
+            // Change data type to string, then to float
             string str = Encoding.ASCII.GetString(recData, 0, len);
             string[] para = str.Split(' ');  // parameters group
 

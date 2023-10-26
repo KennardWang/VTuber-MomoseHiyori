@@ -73,7 +73,8 @@ public class Momose : MonoBehaviour
     {
         // Initialize IP and port
         const string IP = "127.0.0.1";
-        int PORT = PlayerPrefs.GetInt("port");
+        int PORT = PlayerPrefs.GetInt("port");  // build full project
+        //int PORT = 14514;  // only build VTuber
         Debug.Log(PORT);
 
         // Socket initialization
@@ -82,7 +83,7 @@ public class Momose : MonoBehaviour
         serverSocket.Bind(ipEndPoint);
         serverSocket.Listen(100);
 
-        // start a new thread to update parameters
+        // Start a new thread to update parameters
         Thread connect = new Thread(new ThreadStart(paraUpdate));
         connect.Start();
 
@@ -184,7 +185,7 @@ public class Momose : MonoBehaviour
             recData = new byte[1024];
             int len = clientSocket.Receive(recData);
 
-            // client sends data by group, check if no data comes, then enter next group(loop)
+            // Client sends data by group, check if no data comes, then enter next group(loop)
             if (len == 0)
             {
                 SocketConnect();

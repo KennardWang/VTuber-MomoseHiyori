@@ -142,7 +142,7 @@ def draw_FPS(frame, FPS):
 
 def calibrate_eyeOpen(ear, eyeOpenLast, gpu):
     """Calibrate parameter eyeOpen"""
-    flag = False  # jump out current state
+    flag = False  # jump out of current state
 
     if not gpu:
         # CPU env
@@ -208,7 +208,7 @@ def calibrate_eyeball(eyeballX, eyeballY):
 
 def calibrate_eyebrow(bar, eyebroLast, gpu):
     """Calibrate parameter eyebrow"""
-    flag = False  # jump out current state
+    flag = False  # jump out of current state
 
     if not gpu:
         # CPU env

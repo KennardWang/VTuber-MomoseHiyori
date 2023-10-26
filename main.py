@@ -55,7 +55,7 @@ def run():
         cov_process=0.01,
         cov_measure=0.1) for _ in range(8)]
 
-    # Establish a TCP connection to unity
+    # Establish a TCP connection to Unity
     if args.connect:
         address = ('127.0.0.1', args.port)
         sock = Socket()
@@ -82,7 +82,7 @@ def run():
 
         # Loop
         # 1. Face detection, draw face and iris landmarks
-        # 2. Pose estimation and stabilization (face + iris), calculate and calibrate data if low error
+        # 2. Pose estimation and stabilization (face + iris), calculate and calibrate data if error is low
         # 3. Data transmission with socket
 
         # Face detection on every odd frame
@@ -107,13 +107,13 @@ def run():
         if facebox is not None:
             prev_boxes.append(facebox)
 
-            # Mark face and iris on every frame
+            # Mark face and iris on each frame
             if not args.gpu:
                 face = dlib.rectangle(left=facebox[0], top=facebox[1],
                                       right=facebox[2], bottom=facebox[3])
                 marks = utils.shape_to_np(shape_predictor(frame, face))
             else:
-                # Draw landmarks on first frame or every even frame
+                # Draw landmarks on first frame or each even frame
                 if len(prev_marks) == 0 \
                         or frame_count == 1 \
                         or frame_count % 2 == 0:
@@ -156,7 +156,6 @@ def run():
                     steady_pose.append(ps_stb.state[0])
 
                 if args.connect:
-                    # Calibrate: pitch(15 is camera angle)
                     # head
                     roll = np.clip(
                         -(180 + np.degrees(steady_pose[2])), -50, 50)
@@ -242,7 +241,7 @@ def run():
             if cv2.waitKey(1) & 0xFF == ord('q'):  # press q to exit
                 break
 
-    # Close all if terminated
+    # Close all if program is terminated
     cap.release()
     if args.connect:
         sock.close()

@@ -2,7 +2,7 @@ import socket
 
 
 class Socket:
-    """Socket class for message transmission"""
+    """Socket class for message data transmission"""
 
     def __init__(self):
         self.roll = 0.0  # rotate along inner axis
@@ -25,7 +25,7 @@ class Socket:
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def update_all(self, roll, pitch, yaw, eyeOpenLeft, eyeOpenRight, eyeballX, eyeballY, eyebrowLeft, eyebrowRight, mouthWidth, mouthOpen):
-        """Update all variables"""
+        """Update all parameters"""
         self.roll = roll
         self.pitch = pitch
         self.yaw = yaw
@@ -38,14 +38,14 @@ class Socket:
         self.mouthWidth = mouthWidth
         self.mouthOpen = mouthOpen
 
-        # Update last frame
+        # Update some values of last frames
         self.eyeOpenLeftLast = self.eyeOpenLeft
         self.eyeOpenRightLast = self.eyeOpenRight
         self.eyebrowLeftLast = self.eyebrowLeft
         self.eyebrowRightLast = self.eyebrowRight
 
     def conv2msg(self):
-        """Convert all variables to message data"""
+        """Convert all parameters to message data"""
         self.msg = '%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f' % \
             (self.roll, self.pitch, self.yaw, self.eyeOpenLeft, self.eyeOpenRight,
              self.eyeballX, self.eyeballY, self.eyebrowLeft, self.eyebrowRight, self.mouthWidth, self.mouthOpen)
