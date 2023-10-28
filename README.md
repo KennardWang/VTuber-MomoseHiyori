@@ -2,17 +2,19 @@
 
 <div align="center">
   
-  [![description](https://img.shields.io/badge/project-Individual-1F1F1F?style=for-the-badge)](https://github.com/KennardWang/VTuber-MomoseHiyori)
+  [![description](https://img.shields.io/badge/project-Individual-FFB7C5?style=for-the-badge)](https://github.com/KennardWang/VTuber-MomoseHiyori)
   &nbsp;
   [![stars](https://img.shields.io/github/stars/KennardWang/VTuber-MomoseHiyori?style=for-the-badge&color=FDEE21)](https://github.com/KennardWang/VTuber-MomoseHiyori/stargazers)
   &nbsp;
   [![forks](https://img.shields.io/github/forks/KennardWang/VTuber-MomoseHiyori?style=for-the-badge&color=white)](https://github.com/KennardWang/VTuber-MomoseHiyori/forks)
   &nbsp;
   [![contributors](https://img.shields.io/github/contributors/KennardWang/VTuber-MomoseHiyori?style=for-the-badge&color=8BC0D0)](https://github.com/KennardWang/VTuber-MomoseHiyori/graphs/contributors)
-  
+
   <img src="https://img.shields.io/badge/windows-0078D6?logo=windows&logoColor=white&style=for-the-badge" />
   &nbsp;
-  <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue" />
+  <img src="https://img.shields.io/badge/macOS-000000?logo=macos&logoColor=fff&style=for-the-badge" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Python-D5C100?style=for-the-badge&logo=python&logoColor=blue" />
   &nbsp;
   <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white" />
   &nbsp;
@@ -22,11 +24,11 @@
   &nbsp;
   <img src="https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=OpenCV&logoColor=white" />
   &nbsp;
-  <img src="https://img.shields.io/badge/Dlib-008000?logo=dlib&logoColor=fff&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Dlib-20B2AA?logo=dlib&logoColor=fff&style=for-the-badge" />
   &nbsp;
-  <img src="https://img.shields.io/badge/PyCharm-000000.svg?&style=for-the-badge&logo=PyCharm&logoColor=white" />
+  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?logo=visualstudiocode&logoColor=fff&style=for-the-badge" />
   &nbsp;
-  <img src="https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white" />
+  <img src="https://img.shields.io/badge/Unity-858580?style=for-the-badge&logo=unity&logoColor=white" />
 </div>
 
 <br>
@@ -37,7 +39,7 @@
 
 <br>
 
-👋 Hello, I am Momose Hiyori, a Live2D VTuber from Japan. My parents are Cubsim and Unity, my teachers are OpenCV and Deep Learning. I am really good at mimicking faces including poses and expressions, it is a pleasure to meet you all and look forward to being good friends~ ❤️🧡🩷🩵💟💗🥰💕
+👋 Hello, I am Momose Hiyori, a Live2D VTuber from Japan. My parents are Cubsim and Unity, my teachers are OpenCV and Deep Learning. I am really good at mimicking faces including poses and expressions, it is a pleasure to meet you all and look forward to being good friends~ ❤️🧡💗🥰💕
 
 <br>
 
@@ -74,14 +76,14 @@
 | <!-- --> |                                                   <!-- -->                                                   |
 | :------: | :----------------------------------------------------------------------------------------------------------: |
 |  System  |                                                Windows 10 x64                                                |
-| Language |                                    Python 3.8 (algorithm), C# (Unity Script)                                 |
-|   IDE    |     PyCharm 2019.2.5 (algorithm), Live2D Cubism Editor 4.0 (Live2D model), Unity 2019.4.1f1 LTS (Engine)     |
+| Language |                                    Python 3.8 (algorithm), C# (Unity script)                                 |
+|   IDE    |     Visual Studio Code 1.83.1 (algorithm), Live2D Cubism Editor 4.0 (Live2D model), Unity 2022.3.12f1 LTS (Engine)     |
 
 
 
 ## Install
 
-1. Install [Pycharm](https://www.jetbrains.com/pycharm/download/#section=windows), [Unity](https://unity.com/releases/editor/whats-new/2019.4.1) and Python 3.8 (recommend [Anaconda](https://www.anaconda.com/products/individual)).
+1. Install Python 3.8 (recommend to use [Anaconda](https://www.anaconda.com/products/individual)), [Unity](https://unity.com/releases/editor/whats-new/2022.3.12) (recommend to use [UnityHub](https://unity.com/download)).
 2. Download the executable file from the latest [release](https://github.com/KennardWang/VTuber-MomoseHiyori/releases/tag/v3.1.0).
 3. Environment configuration.
 
@@ -98,7 +100,7 @@
     pip install -r requirements.txt
     ```
    
-5. There are 2 types of running environments, please choose the correct one based on individual conditions.
+5. There are 2 types of running environments, please choose the env based on your condition.
    + CPU env
        + Install **dlib**, my version is v19.24.2.
      
@@ -120,8 +122,15 @@
               ```
               pip install torch==1.10.2+cu102 torchvision==0.11.3+cu102 torchaudio===0.10.2+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
               ```
-  
-        + MacOS (ARM) with Apple M1
+
+        + MacOS (X86-64) with Intel
+            + Install [Pytorch](https://pytorch.org/).
+         
+              ```
+              conda install pytorch torchvision torchaudio -c pytorch
+              ```
+ 
+        + MacOS (ARM64) with Apple M1
             + Install [Pytorch](https://pytorch.org/).
          
               ```
@@ -184,7 +193,7 @@ If it runs normally, you can see your face, and press `q` to quit.
 
 **Optional : Set Parameters**
 
-There are some parameters you can change. The default port number is 14514, you could set another port number via `--port=PORT_NUMBER`, but keep it the same as that in the Unity client. Moreover, you can set the camera via `--cam=CAM_INDEX` if you have more than one camera, the default camera index is 0. Please check the guidance of all parameters by using `python main.py --help`.
+There are some parameters you can change. The default port number is `14514`, you could set another port number via `--port=PORT_NUMBER`, but keep it the same as that in the Unity client. Moreover, you can set the camera via `--cam=CAM_INDEX` if you have more than one camera, the default camera index is 0. Please check the guidance of all parameters by using `python main.py --help`.
 
 <br>
 
@@ -201,10 +210,10 @@ There are some parameters you can change. The default port number is 14514, you 
 
 | File / Folder | Description                                                                                                                                                   |
 | :---------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| UnityAssets | Unity materials for those who want to make Live2D VTuber by themselves, please visit [tutorial](https://github.com/KennardWang/VTuber-MomoseHiyori/issues/3). |
-| face_alignment | Module for face detection and landmarks by a powerful face alignment network (FAN), has better performance under GPU env. |
+| UnityAssets | Unity materials for those who want to make Live2D VTuber by themselves, see [tutorial](https://github.com/KennardWang/VTuber-MomoseHiyori/issues/3). |
+| face_alignment | Module for face detection and landmarks by a powerful face alignment network (FAN), recommend to use under GPU env. |
 | face_pose | Module for face pose detection, contains the pose estimator and stabilizer. |
-| tests | Test folder for GitHub Action. |
+| tests | Test folder for GitHub Actions. |
 | main.py | Main program. |
 | sock.py | File with Socket class. |
 | utils.py | File with utility functions. |
@@ -213,7 +222,7 @@ There are some parameters you can change. The default port number is 14514, you 
 
 ## Calibration Algorithms
 
-Obviously, the position of landmarks is meaningless. In most cases, we focus on the ratio (or aspect ratio) which could describe the size, because in Unity, we use a scrolling bar to control actions or events. However, the ratio is mostly not perfect correspondence with the bar value. An interesting question is how to calibrate and map the ratio to the bar value. There are some feasible methods I implement in this project:
+Obviously, the position of landmarks is meaningless. In most cases, we focus on the ratio (or aspect ratio) which could describe the degree, because in Unity, we use a scrolling bar to control actions or events. However, the ratio is mostly not perfect correspondence with the bar value. An interesting question is how to calibrate and map the ratio to the bar value. There are some feasible methods I implement in this project:
 
 ```python
 # Copyright 2023 © Yuyang (Kennard) Wang.
@@ -298,7 +307,7 @@ def calibrate_param3(param3):
 
 ## Maintainers
 
-![badge](https://img.shields.io/badge/maintenance-Maybe-EF2D5E) [@KennardWang](https://github.com/KennardWang)
+![badge](https://img.shields.io/badge/maintenance-NO-EF2D5E) [@KennardWang](https://github.com/KennardWang)
 
 
 
@@ -306,13 +315,13 @@ def calibrate_param3(param3):
 
 Feel free to [open an issue](https://github.com/KennardWang/VTuber-MomoseHiyori/issues) or submit [PRs](https://github.com/KennardWang/VTuber-MomoseHiyori/pulls). Be careful that the submitted code needs to pass format tests and pytests by GitHub Actions, please self-check before pulling requests.
 
-+ flake8 format test (Windows, Mac and Linux) [![1](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/flake8.yml/badge.svg)](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/flake8.yml)
++ flake8 format test (Windows, MacOS and Linux) [![1](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/flake8.yml/badge.svg)](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/flake8.yml)
 
   ```
   flake8 --exclude=face_alignment,face_pose --ignore=E501 .
   ```
 
-+ pytest (Windows, Mac and Linux) [![2](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/pytest.yml/badge.svg)](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/pytest.yml)
++ pytest (Windows, MacOS and Linux) [![2](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/pytest.yml/badge.svg)](https://github.com/KennardWang/VTuber-MomoseHiyori/actions/workflows/pytest.yml)
 
   ```
   pytest tests/test_win.py
