@@ -167,10 +167,10 @@ If it runs normally, you can see your face, and press `q` to quit.
 </p>
 
 <p align = "center">
-    CPU env (left) has higher FPS that may perform better in VTuber, but lower robostness that cannot recognize well if some parts of the face are covered.
+    CPU env (left) has higher FPS that may perform better in VTuber, but lower robustness that cannot recognize well if some parts of the face are covered.
 </p>
 <p align = "center">
-    GPU env (right) has higher robostness, better fluency and consecutiveness but lower FPS because of busier data IO.
+    GPU env (right) has higher robustness, better fluency and consecutiveness but lower FPS because of busier data IO.
 </p>
 
 <br>
