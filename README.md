@@ -34,7 +34,7 @@
 <br>
 
 <p align = "center">
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/VTuberDemo.gif" width = "480px" height = "360px"/>
+    <img src = "https://github.com/KennardWang/Image-Source/blob/main/VTuber-MomoseHiyori/VTuberDemo.gif" width = "480px" height = "360px"/>
 </p>
 
 <br>
@@ -44,9 +44,9 @@
 <br>
 
 <p align = "center">
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/FaceTrack1.gif" width = "400px" height = "210px"/>
+    <img src = "https://github.com/KennardWang/Image-Source/blob/main/VTuber-MomoseHiyori/FaceTrack1.gif" width = "400px" height = "210px"/>
     &nbsp;
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/FaceTrack2.gif" width = "400px" height = "210px"/>
+    <img src = "https://github.com/KennardWang/Image-Source/blob/main/VTuber-MomoseHiyori/FaceTrack2.gif" width = "400px" height = "210px"/>
 </p>
 
 - [x] Head: 6 degrees of freedom.
@@ -162,8 +162,8 @@ If it runs normally, you can see your face, and press `q` to quit.
 <br>
 
 <p align = "center">
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/cpu.gif" width = "400px" height = "230px"/>
-    <img src = "https://kennardwang.github.io/ImageSource/VTuber-MomoseHiyori/gpu.gif" width = "400px" height = "230px"/>
+    <img src = "https://github.com/KennardWang/Image-Source/blob/main/VTuber-MomoseHiyori/cpu.gif" width = "400px" height = "230px"/>
+    <img src = "https://github.com/KennardWang/Image-Source/blob/main/VTuber-MomoseHiyori/gpu.gif" width = "400px" height = "230px"/>
 </p>
 
 <p align = "center">
